@@ -1,0 +1,33 @@
+{
+  "name": "ember-auth-easy",
+  "summary": "Authentication framework for ember.js.",
+  "description": "Authentication framework for ember.js.",
+  "keywords": ["ember", "emberjs", "ember.js", "auth", "authentication"],
+  "homepage": "http://github.com/mharris717/ember-auth-easy",
+  "bugs": "http://github.com/mharris717/ember-auth-easy/issues",
+  "version": "0.0.1",
+  "main": "lib/main.js",
+
+  "author": {
+    "name": "mharris717",
+    "email": "mharris717@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "mharris717",
+      "email": "mharris717@gmail.com"
+    }
+  ],
+
+  "devDependencies": {
+     "mocha": "",
+     "should": ""
+   },
+
+  "engines": { "node": "*" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mharris717/ember-auth-easy"
+  },
+  "license": "MIT"
+}

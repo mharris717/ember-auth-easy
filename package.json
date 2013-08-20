@@ -21,7 +21,8 @@
 
   "devDependencies": {
      "mocha": "",
-     "should": ""
+     "should": "",
+     "coffee-script": ">= 1.3"
    },
 
   "scripts": {

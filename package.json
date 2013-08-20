@@ -24,6 +24,14 @@
      "should": ""
    },
 
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+
+  "bin": {
+    "ember-auth-easy": "./bin/ember-auth-easy"
+  },
+
   "engines": { "node": "*" },
   "repository": {
     "type": "git",

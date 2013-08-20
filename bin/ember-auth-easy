@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+var auth = require("../lib/main")
+
+var args = process.argv.slice(2);
+var res = auth.double(args[0]);
+console.log(res);

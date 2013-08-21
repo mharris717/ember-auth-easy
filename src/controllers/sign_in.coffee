@@ -14,6 +14,8 @@ App.SignInController = Em.ObjectController.extend
   double: (x) ->
     x*2
 
+  dropboxUrl: (-> "http://cnn.com").property()
+
 App.SignOutController = Em.ObjectController.extend
   init: ->
     @_super()

@@ -1,4 +1,12 @@
 should = require("should")
+
+setup = require("../lib/module_setup")
+testSetup = require("../lib/test_setup")
+
+testSetup.setup()
+setup.loadVendorLibs()
+setup.loadEmberAuth()
+
 auth = require("../lib/main")
 
 App = window.App = Em.Application.create()

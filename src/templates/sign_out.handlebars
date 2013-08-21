@@ -1,0 +1,8 @@
+<a href="#" {{action "logout"}}>Logout</a>
+{{#if App.Auth.user.providers.fatsecret}}
+  
+{{else}}
+  {{#if App.useFatSecret}}
+    <a {{bindAttr href="fatsecretUrl"}}>Connect FatSecret</a>
+  {{/if}}
+{{/if}}

@@ -1,6 +1,13 @@
 should = require("should")
 auth = require("../lib/main")
 
+App = window.App = Em.Application.create()
+
+App.Store = DS.Store.extend
+  revision: 11
+  adapter: 'DS.RESTAdapter'
+
+
 describe "ember auth", ->
   it "smoke", ->
     num = 2;
@@ -11,3 +18,10 @@ describe "ember auth", ->
 
   it "double", ->
     auth.double(4).should.eql 8
+
+  it 'controller', ->
+    c = auth.controllers.SignInController.create()
+    c.double(7).should.eql(14)
+
+  it 'user model', ->
+    auth.models.User.double(4).should.eql(8)

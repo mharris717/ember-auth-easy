@@ -5,7 +5,7 @@
   "keywords": ["ember", "emberjs", "ember.js", "auth", "authentication"],
   "homepage": "http://github.com/mharris717/ember-auth-easy",
   "bugs": "http://github.com/mharris717/ember-auth-easy/issues",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/main.js",
 
   "author": {
@@ -18,6 +18,12 @@
       "email": "mharris717@gmail.com"
     }
   ],
+
+  "dependencies": {
+    "jquery": "",
+    "jsdom": "",
+    "handlebars":"",
+    "ember-auth": ""},
 
   "devDependencies": {
      "mocha": "",

@@ -1,5 +1,3 @@
-#require "./module_setup"
-
 possAct = (f) ->
   if typeof(Em) == 'undefined'
     f
@@ -15,12 +13,16 @@ auth =
   controllers: possAct -> require("./controllers/sign_in")
   models: possAct -> require("./models/user")
   Auth: possAct -> require("./auth_setup")
-  setup: require './module_setup'
+  #setup: require './module_setup'
 
   setupApp: (app) ->
     app.User = @models.User
     app.SignInController = @controllers.SignInController
     app.SignOutController = @controllers.SignOutController
-    app.Auth = @Auth
+    app.Auth = @Auth.Auth
+    require("./templates")
+
+if typeof(window) != 'undefined'
+  window.EmberAuth = auth 
 
 module.exports = auth

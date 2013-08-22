@@ -28,4 +28,8 @@ task :test => :build do
   exec "npm test"
 end
 
+task :dist => :build do
+  ec "browserify lib/main.js > dist/ember-auth-easy.js"
+end
+
 

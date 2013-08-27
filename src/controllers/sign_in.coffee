@@ -5,12 +5,20 @@ Appx.SignInController = Em.ObjectController.extend
     @_super()
     @set "content",Em.Object.create()
 
+  addlLoginOps: -> 
+    console.debug "in empty addlLoginOps"
+    {}
+
   login: ->
-    App.Auth.signIn
+    console.debug "in login"
+    ops = 
       data: 
         "email": @$email
         "password": @$password
-    console.debug 'here place'
+    for k,v of @addlLoginOps()
+      ops[k] = v
+
+    App.Auth.signIn(ops)
 
   double: (x) ->
     x*2

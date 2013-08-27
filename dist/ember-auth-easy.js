@@ -5,42 +5,52 @@
 
   Appx = {};
 
-  Appx.Auth = Em.Auth.create({
-    signInEndPoint: '/users/sign_in.json',
-    signOutEndPoint: '/logout',
-    userModel: 'App.User',
-    tokenKey: "auth_token",
-    tokenIdKey: "user_id",
-    sessionAdapter: 'cookie',
-    modules: ['emberData', 'rememberable'],
-    rememberable: {
-      tokenKey: 'auth_token',
-      period: 14,
-      autoRecall: true
-    }
-  });
-
-  Appx.Auth.on("signInSuccess", function() {
-    console.debug("signed in");
-    return setTimeout(function() {
-      var c, classes, _i, _len, _results;
-      classes = App.get('userRefreshClasses');
-      if (classes) {
-        _results = [];
-        for (_i = 0, _len = classes.length; _i < _len; _i++) {
-          c = classes[_i];
-          _results.push(c.find());
-        }
-        return _results;
+  Appx.Auth = function(overrideOps) {
+    var a, defaults, k, ops, v;
+    defaults = {
+      signInEndPoint: '/users/sign_in.json',
+      signOutEndPoint: '/logout',
+      userModel: 'App.User',
+      tokenKey: "auth_token",
+      tokenIdKey: "user_id",
+      sessionAdapter: 'cookie',
+      modules: ['emberData', 'rememberable'],
+      rememberable: {
+        tokenKey: 'auth_token',
+        period: 14,
+        autoRecall: true
       }
-    }, 1000);
-  });
-
-  Appx.Auth.on('signInError', function(a) {
-    var resp;
-    resp = App.Auth.get('response');
-    return alert("sign in error " + resp);
-  });
+    };
+    ops = defaults;
+    if (overrideOps) {
+      for (k in overrideOps) {
+        v = overrideOps[k];
+        ops[k] = v;
+      }
+    }
+    a = Em.Auth.create(ops);
+    a.on("signInSuccess", function() {
+      console.debug("signed in");
+      return setTimeout(function() {
+        var c, classes, _i, _len, _results;
+        classes = App.get('userRefreshClasses');
+        if (classes) {
+          _results = [];
+          for (_i = 0, _len = classes.length; _i < _len; _i++) {
+            c = classes[_i];
+            _results.push(c.find());
+          }
+          return _results;
+        }
+      }, 1000);
+    });
+    a.on('signInError', function(a) {
+      var resp;
+      resp = App.Auth.get('response');
+      return console.debug("sign in error " + resp);
+    });
+    return a;
+  };
 
   module.exports = Appx;
 
@@ -58,14 +68,25 @@
       this._super();
       return this.set("content", Em.Object.create());
     },
+    addlLoginOps: function() {
+      console.debug("in empty addlLoginOps");
+      return {};
+    },
     login: function() {
-      App.Auth.signIn({
+      var k, ops, v, _ref;
+      console.debug("in login");
+      ops = {
         data: {
           "email": this.get('email'),
           "password": this.get('password')
         }
-      });
-      return console.debug('here place');
+      };
+      _ref = this.addlLoginOps();
+      for (k in _ref) {
+        v = _ref[k];
+        ops[k] = v;
+      }
+      return App.Auth.signIn(ops);
     },
     double: function(x) {
       return x * 2;
@@ -120,11 +141,11 @@
     Auth: possAct(function() {
       return require("./auth_setup");
     }),
-    setupApp: function(app) {
+    setupApp: function(app, ops) {
       app.User = this.models.User;
       app.SignInController = this.controllers.SignInController;
       app.SignOutController = this.controllers.SignOutController;
-      app.Auth = this.Auth.Auth;
+      app.Auth = this.Auth.Auth(ops);
       return require("./templates");
     }
   };
@@ -132,6 +153,53 @@
   if (typeof window !== 'undefined') {
     window.EmberAuth = auth;
   }
+
+  Em.Auth.Request.MyDummy = Em.Object.extend({
+    validCreds: function(email, password) {
+      if (email === "user@fake.com" && password === 'password123') {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    signIn: function(url, opts) {
+      if (opts == null) {
+        opts = {};
+      }
+      console.debug("sign in opts");
+      console.debug(opts);
+      if (this.validCreds(opts.data.email, opts.data.password)) {
+        this.auth.trigger('signInSuccess');
+        App.Auth.set('user', App.User.createRecord({
+          email: opts.data.email,
+          id: 1
+        }));
+      } else {
+        this.auth.trigger('signInError');
+      }
+      return this.auth.trigger('signInComplete');
+    },
+    signOut: function(url, opts) {
+      if (opts == null) {
+        opts = {};
+      }
+      this.send(opts);
+      switch (opts.status) {
+        case 'success':
+          this.auth.trigger('signOutSuccess');
+          break;
+        case 'error':
+          this.auth.trigger('signOutError');
+      }
+      return this.auth.trigger('signOutComplete');
+    },
+    send: function(opts) {
+      if (opts == null) {
+        opts = {};
+      }
+      return this.auth._response.canonicalize(opts);
+    }
+  });
 
   module.exports = auth;
 
@@ -168,9 +236,11 @@
 }).call(this);
 
 },{}],5:[function(require,module,exports){
-Em.TEMPLATES['_user_status'] = Em.Handlebars.compile('{{#if App.Auth.signedIn}}   Signed In as {{App.Auth.user.email}}   {{render sign_out}} {{else}}   {{render sign_in}} {{/if}}');
+console.debug('templates top');
 
-Em.TEMPLATES['sign_in'] = Em.Handlebars.compile('<form class="form-inline">   {{#if showLoginForm}}     {{view Em.TextField valueBinding="email" placeholder="Email"}}     {{view Em.TextField valueBinding="password" placeholder="Password"}}     <button {{action "login"}}>Login</button>   {{/if}}    <a {{bindAttr href="dropboxUrl"}}>Login with Dropbox</a> </form>');
+Em.TEMPLATES['_user_status'] = Em.Handlebars.compile('<span class="user-status">   {{#if App.Auth.signedIn}}     Signed In as {{App.Auth.user.email}}     {{render sign_out}}   {{else}}     {{render sign_in}}   {{/if}} </span>');
+
+Em.TEMPLATES['sign_in'] = Em.Handlebars.compile('<form class="form-inline login-form">   {{#if showLoginForm}}     <span class="email-field">       {{view Em.TextField valueBinding="email" placeholder="Email"}}      </span>      <span class="password-field">       {{view Em.TextField valueBinding="password" placeholder="Password"}}     </span>     <span class="submit-button">       <button {{action "login"}}>Login</button>     </span>   {{/if}}    <a {{bindAttr href="dropboxUrl"}}>Login with Dropbox</a> </form>');
 
 Em.TEMPLATES['sign_out'] = Em.Handlebars.compile('<a href="#" {{action "logout"}}>Logout</a> {{#if App.Auth.user.providers.fatsecret}}    {{else}}   {{#if App.useFatSecret}}     <a {{bindAttr href="fatsecretUrl"}}>Connect FatSecret</a>   {{/if}} {{/if}}');
 

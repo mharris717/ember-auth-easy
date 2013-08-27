@@ -1,8 +1,14 @@
-<form class="form-inline">
+<form class="form-inline login-form">
   {{#if showLoginForm}}
-    {{view Em.TextField valueBinding="email" placeholder="Email"}}
-    {{view Em.TextField valueBinding="password" placeholder="Password"}}
-    <button {{action "login"}}>Login</button>
+    <span class="email-field">
+      {{view Em.TextField valueBinding="email" placeholder="Email"}}
+     </span>
+     <span class="password-field">
+      {{view Em.TextField valueBinding="password" placeholder="Password"}}
+    </span>
+    <span class="submit-button">
+      <button {{action "login"}}>Login</button>
+    </span>
   {{/if}}
 
   <a {{bindAttr href="dropboxUrl"}}>Login with Dropbox</a>

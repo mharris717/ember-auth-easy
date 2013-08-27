@@ -15,14 +15,41 @@ auth =
   Auth: possAct -> require("./auth_setup")
   #setup: require './module_setup'
 
-  setupApp: (app) ->
+  setupApp: (app,ops) ->
     app.User = @models.User
     app.SignInController = @controllers.SignInController
     app.SignOutController = @controllers.SignOutController
-    app.Auth = @Auth.Auth
+    app.Auth = @Auth.Auth(ops)
     require("./templates")
 
 if typeof(window) != 'undefined'
   window.EmberAuth = auth 
+
+Em.Auth.Request.MyDummy = Em.Object.extend
+  validCreds: (email,password) ->
+    if email == "user@fake.com" && password == 'password123'
+      true
+    else
+      false
+
+  signIn: (url, opts = {}) ->
+    console.debug "sign in opts"
+    console.debug opts
+    if @validCreds(opts.data.email,opts.data.password)
+      @auth.trigger 'signInSuccess'
+      App.Auth.set 'user', App.User.createRecord(email: opts.data.email, id: 1)
+    else
+      @auth.trigger 'signInError'
+    @auth.trigger 'signInComplete'
+
+  signOut: (url, opts = {}) ->
+    @send opts
+    switch opts.status
+      when 'success' then @auth.trigger 'signOutSuccess'
+      when 'error'   then @auth.trigger 'signOutError'
+    @auth.trigger 'signOutComplete'
+
+  send: (opts = {}) ->
+    @auth._response.canonicalize opts
 
 module.exports = auth

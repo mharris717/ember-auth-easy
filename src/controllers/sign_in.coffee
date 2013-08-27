@@ -1,6 +1,6 @@
-App = {}
+Appx = {}
 
-App.SignInController = Em.ObjectController.extend
+Appx.SignInController = Em.ObjectController.extend
   init: ->
     @_super()
     @set "content",Em.Object.create()
@@ -10,13 +10,14 @@ App.SignInController = Em.ObjectController.extend
       data: 
         "email": @$email
         "password": @$password
+    console.debug 'here place'
 
   double: (x) ->
     x*2
 
   dropboxUrl: (-> "#{App.getServerUrl()}/users/auth/dropbox").property()
 
-App.SignOutController = Em.ObjectController.extend
+Appx.SignOutController = Em.ObjectController.extend
   init: ->
     @_super()
     @set "content",Em.Object.create()
@@ -26,4 +27,4 @@ App.SignOutController = Em.ObjectController.extend
     App.Auth.get("_session").clear()
     App.Auth.trigger "signOutSuccess"
 
-module.exports = App
+module.exports = Appx

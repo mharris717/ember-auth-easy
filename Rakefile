@@ -1,4 +1,5 @@
 require 'mharris_ext'
+require 'coffee_short_get'
 
 def ec(cmd)
   puts cmd
@@ -22,6 +23,12 @@ task :build do
   ec "rm -rf lib/vendor"
   ec "cp -r vendor lib"
   build_templates
+
+  Dir["lib/**/*.js"].each do |f|
+    body = File.read(f)
+    body = CoffeeParse.parse(body)
+    File.create f, body
+  end
 end
 
 task :test => :build do

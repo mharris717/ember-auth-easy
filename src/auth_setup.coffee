@@ -1,6 +1,6 @@
-App = {}
+Appx = {}
 
-App.Auth = Em.Auth.create
+Appx.Auth = Em.Auth.create
   signInEndPoint: '/users/sign_in.json'
   signOutEndPoint: '/logout'
   userModel: 'App.User'
@@ -16,7 +16,7 @@ App.Auth = Em.Auth.create
     period: 14 # default 14
     autoRecall: true # default true
 
-App.Auth.on "signInSuccess", ->
+Appx.Auth.on "signInSuccess", ->
   console.debug "signed in"
   setTimeout ->
     classes = App.$userRefreshClasses
@@ -25,4 +25,8 @@ App.Auth.on "signInSuccess", ->
         c.find()
   ,1000
 
-module.exports = App
+Appx.Auth.on 'signInError', (a) ->
+  resp = App.Auth.$response
+  alert "sign in error #{resp}"
+
+module.exports = Appx

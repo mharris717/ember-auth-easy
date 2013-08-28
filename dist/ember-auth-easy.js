@@ -168,16 +168,23 @@
       }
       console.debug("sign in opts");
       console.debug(opts);
+      this.send(opts);
       if (this.validCreds(opts.data.email, opts.data.password)) {
         this.auth.trigger('signInSuccess');
         App.Auth.set('user', App.User.createRecord({
           email: opts.data.email,
-          id: 1
+          id: 1,
+          auth_token: "token123"
         }));
       } else {
         this.auth.trigger('signInError');
       }
-      return this.auth.trigger('signInComplete');
+      this.auth.trigger('signInComplete');
+      return {
+        email: opts.data.email,
+        id: 1,
+        auth_token: "token123"
+      };
     },
     signOut: function(url, opts) {
       if (opts == null) {
@@ -194,10 +201,36 @@
       return this.auth.trigger('signOutComplete');
     },
     send: function(opts) {
+      var k, res, v;
       if (opts == null) {
         opts = {};
       }
-      return this.auth._response.canonicalize(opts);
+      console.debug("MyDummy send");
+      console.debug(opts);
+      Em.Auth.Request.MyDummy.addSendOpts(opts);
+      res = {};
+      for (k in opts) {
+        v = opts[k];
+        res[k] = v;
+      }
+      res;
+      if (this.validCreds(opts.data.email, opts.data.password)) {
+        res.auth_token = "token123";
+      }
+      return this.auth._response.canonicalize(res);
+    }
+  });
+
+  Em.Auth.Request.MyDummy.reopenClass({
+    addSendOpts: function(ops) {
+      return this.getOptsList().push(ops);
+    },
+    getOptsList: function() {
+      this.optsList || (this.optsList = []);
+      return this.optsList;
+    },
+    clearOptsList: function() {
+      return this.optsList = [];
     }
   });
 
@@ -236,8 +269,6 @@
 }).call(this);
 
 },{}],5:[function(require,module,exports){
-console.debug('templates top');
-
 Em.TEMPLATES['_user_status'] = Em.Handlebars.compile('<span class="user-status">   {{#if App.Auth.signedIn}}     Signed In as {{App.Auth.user.email}}     {{render sign_out}}   {{else}}     {{render sign_in}}   {{/if}} </span>');
 
 Em.TEMPLATES['sign_in'] = Em.Handlebars.compile('<form class="form-inline login-form">   {{#if showLoginForm}}     <span class="email-field">       {{view Em.TextField valueBinding="email" placeholder="Email"}}      </span>      <span class="password-field">       {{view Em.TextField valueBinding="password" placeholder="Password"}}     </span>     <span class="submit-button">       <button {{action "login"}}>Login</button>     </span>   {{/if}}    <a {{bindAttr href="dropboxUrl"}}>Login with Dropbox</a> </form>');

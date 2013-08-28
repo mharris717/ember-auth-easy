@@ -35,12 +35,16 @@ Em.Auth.Request.MyDummy = Em.Object.extend
   signIn: (url, opts = {}) ->
     console.debug "sign in opts"
     console.debug opts
+
+    @send(opts)
+
     if @validCreds(opts.data.email,opts.data.password)
       @auth.trigger 'signInSuccess'
-      App.Auth.set 'user', App.User.createRecord(email: opts.data.email, id: 1)
+      App.Auth.set 'user', App.User.createRecord(email: opts.data.email, id: 1, auth_token: "token123")
     else
       @auth.trigger 'signInError'
     @auth.trigger 'signInComplete'
+    {email: opts.data.email, id: 1, auth_token: "token123"}
 
   signOut: (url, opts = {}) ->
     @send opts
@@ -50,6 +54,26 @@ Em.Auth.Request.MyDummy = Em.Object.extend
     @auth.trigger 'signOutComplete'
 
   send: (opts = {}) ->
-    @auth._response.canonicalize opts
+    console.debug "MyDummy send"
+    console.debug opts
+    Em.Auth.Request.MyDummy.addSendOpts(opts)
+    
+    res = {}
+    for k,v of opts
+      res[k] = v
+    res
+    if @validCreds(opts.data.email,opts.data.password)
+      res.auth_token = "token123"
+
+    @auth._response.canonicalize res
+
+Em.Auth.Request.MyDummy.reopenClass
+  addSendOpts: (ops) ->
+    @getOptsList().push(ops)
+  getOptsList: ->
+    @optsList ||= []
+    @optsList
+  clearOptsList: ->
+    @optsList = []
 
 module.exports = auth

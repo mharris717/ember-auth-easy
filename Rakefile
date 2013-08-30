@@ -39,14 +39,19 @@ def run_shell_test(cmd)
   res
 end
 
-task :test => :build do
-  run_shell_test "npm test"
-  run_shell_test "cd test_app && npm install && bower install && npm test"
-end
-
 task :dist => :build do
   ec "browserify lib/main.js > dist/ember-auth-easy.js"
 end
 
+namespace :test do
+  namespace :app do
+    task :update do
+      ec "cd test_app && git pull origin master && cd .. && git add test_app && git commit -m 'Updated testapp ref'"
+    end
+    task :test do
+      run_shell_test "cd test_app && npm install && rm -r vendor/ember-auth-easy && bower install && npm test"
+    end
+  end
+end
 
 

@@ -49,7 +49,7 @@ namespace :test do
       ec "cd test_app && git pull origin master && cd .. && git add test_app && git commit -m 'Updated testapp ref'"
     end
     task :test do
-      run_shell_test "cd test_app && npm install && rm -r vendor/ember-auth-easy && bower install && npm test"
+      run_shell_test "cd test_app && npm install && rake full_install && npm test"
     end
   end
 

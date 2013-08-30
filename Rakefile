@@ -52,6 +52,13 @@ namespace :test do
       run_shell_test "cd test_app && npm install && rm -r vendor/ember-auth-easy && bower install && npm test"
     end
   end
+
+  task :run do
+    run_shell_test "npm test"
+  end
 end
 
+task :release => ['test:app:update',:dist,'test:run'] do
+  ec "git push origin master"
+end
 

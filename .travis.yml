@@ -1,3 +1,4 @@
 language: node_js
 before_install:
+  - gem install mharris_ext coffee_short_get
   - git submodule update --init --recursive

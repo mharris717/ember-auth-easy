@@ -4,6 +4,10 @@ possAct = (f) ->
   else
     f()
 
+console.mylog = (str) ->
+  #console.debug str
+  3
+
 auth = 
   foo: -> return 14
 
@@ -22,6 +26,11 @@ auth =
     app.Auth = @Auth.Auth(ops)
     require("./templates")
 
+  registerOps: (ops) ->
+    @defaultOps = ops
+  getDefaultOps: ->
+    @defaultOps || {}
+
 if typeof(window) != 'undefined'
   window.EmberAuth = auth 
 
@@ -33,8 +42,8 @@ Em.Auth.Request.MyDummy = Em.Object.extend
       false
 
   signIn: (url, opts = {}) ->
-    console.debug "sign in opts"
-    console.debug opts
+    console.mylog "sign in opts"
+    console.mylog opts
 
     @send(opts)
 
@@ -54,8 +63,8 @@ Em.Auth.Request.MyDummy = Em.Object.extend
     @auth.trigger 'signOutComplete'
 
   send: (opts = {}) ->
-    console.debug "MyDummy send"
-    console.debug opts
+    console.mylog "MyDummy send"
+    console.mylog opts
     Em.Auth.Request.MyDummy.addSendOpts(opts)
     
     res = {}

@@ -6,11 +6,11 @@ Appx.SignInController = Em.ObjectController.extend
     @set "content",Em.Object.create()
 
   addlLoginOps: -> 
-    console.debug "in empty addlLoginOps"
+    console.mylog "in empty addlLoginOps"
     {}
 
   login: ->
-    console.debug "in login"
+    console.mylog "in login"
     ops = 
       data: 
         "email": @$email
@@ -18,7 +18,12 @@ Appx.SignInController = Em.ObjectController.extend
     for k,v of @addlLoginOps()
       ops[k] = v
 
+    console.mylog "login ops"
+    console.mylog ops
+
     App.Auth.signIn(ops)
+
+  showLoginForm: (-> true).property()
 
   double: (x) ->
     x*2
@@ -31,7 +36,7 @@ Appx.SignOutController = Em.ObjectController.extend
     @set "content",Em.Object.create()
 
   logout: ->
-    console.debug "logout"
+    console.mylog "logout"
     App.Auth.get("_session").clear()
     App.Auth.trigger "signOutSuccess"
 

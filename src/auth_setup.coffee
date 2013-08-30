@@ -25,7 +25,7 @@ Appx.Auth = (overrideOps) ->
   a = Em.Auth.create(ops)    
 
   a.on "signInSuccess", ->
-    console.debug "signed in"
+    console.mylog "signed in"
     setTimeout ->
       classes = App.$userRefreshClasses
       if classes
@@ -35,7 +35,7 @@ Appx.Auth = (overrideOps) ->
 
   a.on 'signInError', (a) ->
     resp = App.Auth.$response
-    console.debug "sign in error #{resp}"
+    console.mylog "sign in error #{resp}"
 
   a
 

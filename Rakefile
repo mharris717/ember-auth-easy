@@ -31,12 +31,22 @@ task :build do
   end
 end
 
+def run_shell_test(cmd)
+  puts cmd
+  res = `#{cmd}`
+  puts res
+  raise "bad test #{cmd}" unless $?.success?
+  res
+end
+
 task :test => :build do
-  exec "npm test"
+  run_shell_test "npm test"
+  run_shell_test "cd test_app && npm install && bower install && npm test"
 end
 
 task :dist => :build do
   ec "browserify lib/main.js > dist/ember-auth-easy.js"
 end
+
 
 

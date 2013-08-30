@@ -30,7 +30,7 @@
     }
     a = Em.Auth.create(ops);
     a.on("signInSuccess", function() {
-      console.debug("signed in");
+      console.mylog("signed in");
       return setTimeout(function() {
         var c, classes, _i, _len, _results;
         classes = App.get('userRefreshClasses');
@@ -47,7 +47,7 @@
     a.on('signInError', function(a) {
       var resp;
       resp = App.Auth.get('response');
-      return console.debug("sign in error " + resp);
+      return console.mylog("sign in error " + resp);
     });
     return a;
   };
@@ -69,12 +69,12 @@
       return this.set("content", Em.Object.create());
     },
     addlLoginOps: function() {
-      console.debug("in empty addlLoginOps");
+      console.mylog("in empty addlLoginOps");
       return {};
     },
     login: function() {
       var k, ops, v, _ref;
-      console.debug("in login");
+      console.mylog("in login");
       ops = {
         data: {
           "email": this.get('email'),
@@ -86,8 +86,13 @@
         v = _ref[k];
         ops[k] = v;
       }
+      console.mylog("login ops");
+      console.mylog(ops);
       return App.Auth.signIn(ops);
     },
+    showLoginForm: (function() {
+      return true;
+    }).property(),
     double: function(x) {
       return x * 2;
     },
@@ -102,7 +107,7 @@
       return this.set("content", Em.Object.create());
     },
     logout: function() {
-      console.debug("logout");
+      console.mylog("logout");
       App.Auth.get("_session").clear();
       return App.Auth.trigger("signOutSuccess");
     }
@@ -123,6 +128,10 @@
     } else {
       return f();
     }
+  };
+
+  console.mylog = function(str) {
+    return 3;
   };
 
   auth = {
@@ -147,6 +156,12 @@
       app.SignOutController = this.controllers.SignOutController;
       app.Auth = this.Auth.Auth(ops);
       return require("./templates");
+    },
+    registerOps: function(ops) {
+      return this.defaultOps = ops;
+    },
+    getDefaultOps: function() {
+      return this.defaultOps || {};
     }
   };
 
@@ -166,8 +181,8 @@
       if (opts == null) {
         opts = {};
       }
-      console.debug("sign in opts");
-      console.debug(opts);
+      console.mylog("sign in opts");
+      console.mylog(opts);
       this.send(opts);
       if (this.validCreds(opts.data.email, opts.data.password)) {
         this.auth.trigger('signInSuccess');
@@ -205,8 +220,8 @@
       if (opts == null) {
         opts = {};
       }
-      console.debug("MyDummy send");
-      console.debug(opts);
+      console.mylog("MyDummy send");
+      console.mylog(opts);
       Em.Auth.Request.MyDummy.addSendOpts(opts);
       res = {};
       for (k in opts) {

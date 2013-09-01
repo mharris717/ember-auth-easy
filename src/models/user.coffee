@@ -3,7 +3,7 @@ Appx = {}
 Appx.User = DS.Model.extend
   email: DS.attr('string')
   authentication_token: DS.attr('string')
-  providers: DS.attr("hash")
+  password: DS.attr('string')
 
 Appx.User.reopenClass
   double: (x) ->

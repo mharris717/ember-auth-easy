@@ -8,6 +8,21 @@ console.mylog = (str) ->
   #console.debug str
   3
 
+setupAuthUrls = ->
+  DS.RESTAdapter.reopen
+    buildURL: (record, suffix) ->
+      if record == 'user'
+        record = "ember_user" 
+        s = @._super(record, suffix)
+        s + ".json"
+      else
+        @._super(record, suffix)
+
+setupHashType = ->
+  DS.RESTAdapter.registerTransform 'hash',
+    serialize: (value) -> value
+    deserialize: (value) -> value
+
 auth = 
   foo: -> return 14
 
@@ -25,6 +40,8 @@ auth =
     app.SignOutController = @controllers.SignOutController
     app.Auth = @Auth.Auth(ops)
     require("./templates")
+    #setupAuthUrls()
+    setupHashType()
 
   registerOps: (ops) ->
     @defaultOps = ops

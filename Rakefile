@@ -35,7 +35,7 @@ def run_shell_test(cmd)
   puts cmd
   res = `#{cmd}`
   puts res
-  raise "bad test #{cmd}" unless $?.success?
+  raise "bad test | #{cmd} | #{res}" unless $?.success?
   res
 end
 

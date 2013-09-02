@@ -10,7 +10,7 @@ def build_templates
   File.create "lib/templates.js",""
   Dir["src/templates/*.handlebars"].each do |f|
     name = File.basename(f).split(".").first
-    body = File.read(f).gsub("\n"," ")
+    body = File.read(f).gsub("\n"," ").gsub("'",'"')
     File.append "lib/templates.js","Em.TEMPLATES['#{name}'] = Em.Handlebars.compile('#{body}');\n\n"
   end
 end
@@ -62,3 +62,6 @@ task :release => ['test:app:update',:dist,'test:run'] do
   ec "git push origin master"
 end
 
+task :readme do
+  ec "~/gems/github-markdown-0.5.3/bin/gfm < README.md > tmp/README.html"
+end

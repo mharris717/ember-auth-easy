@@ -2,3 +2,4 @@ node_modules
 lib
 test
 npm_perm.sh
+tmp

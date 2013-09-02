@@ -2,6 +2,8 @@
 
 Simple library to do token authentication in Ember.js. 
 
+Corresponding Rails Engine: [Ember Auth Rails](https://github.com/mharris717/ember_auth_rails)
+
 ### Including in your project
 
 Just include dist/ember-auth-easy.js in your project after including Ember, Ember Data, and Ember Auth.
@@ -12,12 +14,14 @@ Ember Auth Easy is also available as an npm module.
 
 After including ember-auth-easy.js and creating your App, call EmberAuth.setupApp
 
-```
+```javascript
 // If your ember app is on the same url as your server    
 EmberAuth.setupApp(App);
 
 // If your ember app is on a different url
 EmberAuth.setupApp(App, {baseUrl: "http://serverurl.com"});
+
+ADD ROUTE FUNC
 ```
 
 This does the following:

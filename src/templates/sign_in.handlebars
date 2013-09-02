@@ -9,6 +9,8 @@
     <span class="submit-button">
       <button {{action "login"}}>Login</button>
     </span>
+
+    {{#linkTo "register"}}Register{{/linkTo}}
   {{else}}
     <a {{bindAttr href="dropboxUrl"}}>Login with Dropbox</a>
   {{/if}}

@@ -12,7 +12,6 @@ setupAuthUrls = ->
   DS.RESTAdapter.reopen
     buildURL: (record, suffix) ->
       if record == 'user'
-        record = "ember_user" 
         s = @._super(record, suffix)
         s + ".json"
       else
@@ -23,13 +22,18 @@ setupHashType = ->
     serialize: (value) -> value
     deserialize: (value) -> value
 
+getControllers = ->
+  res = require("./controllers/sign_in")
+  res = $.extend res, require("./controllers/register")
+  res
+
 auth = 
   foo: -> return 14
 
   double: (x) ->
     return x * 2
 
-  controllers: possAct -> require("./controllers/sign_in")
+  controllers: possAct -> getControllers()
   models: possAct -> require("./models/user")
   Auth: possAct -> require("./auth_setup")
   #setup: require './module_setup'
@@ -38,10 +42,15 @@ auth =
     app.User = @models.User
     app.SignInController = @controllers.SignInController
     app.SignOutController = @controllers.SignOutController
+    app.RegisterController = @controllers.RegisterController
     app.Auth = @Auth.Auth(ops)
     require("./templates")
-    #setupAuthUrls()
+    setupAuthUrls()
     setupHashType()
+
+  setupRouter: (router) ->
+    router.route("register");
+    router.route('registered');
 
   registerOps: (ops) ->
     @defaultOps = ops

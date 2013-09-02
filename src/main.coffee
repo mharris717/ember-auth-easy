@@ -23,13 +23,18 @@ setupHashType = ->
     serialize: (value) -> value
     deserialize: (value) -> value
 
+getControllers = ->
+  res = require("./controllers/sign_in")
+  res = $.extend res, require("./controllers/register")
+  res
+
 auth = 
   foo: -> return 14
 
   double: (x) ->
     return x * 2
 
-  controllers: possAct -> require("./controllers/sign_in")
+  controllers: possAct -> getControllers()
   models: possAct -> require("./models/user")
   Auth: possAct -> require("./auth_setup")
   #setup: require './module_setup'
@@ -38,6 +43,7 @@ auth =
     app.User = @models.User
     app.SignInController = @controllers.SignInController
     app.SignOutController = @controllers.SignOutController
+    app.RegisterController = @controllers.RegisterController
     app.Auth = @Auth.Auth(ops)
     require("./templates")
     #setupAuthUrls()

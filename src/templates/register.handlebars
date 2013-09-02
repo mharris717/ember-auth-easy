@@ -1,0 +1,13 @@
+<div class="register">
+  <form class="register-form">
+    <span class="email-field">
+      Email: {{view Em.TextField valueBinding="email"}}<br>
+    </span>
+
+    <span class="password-field">
+      Password: {{view Em.TextField valueBinding="password"}}<br>
+    </span>
+    
+    <button {{action "register"}}>Register</button>
+  </form>
+</div>

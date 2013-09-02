@@ -65,11 +65,17 @@
 
   Appx.RegisterController = Em.ObjectController.extend({
     init: function() {
+      var u,
+        _this = this;
       this._super();
-      return this.set('content', App.User.createRecord({
+      u = App.User.createRecord({
         email: "user2@fake.com",
         password: "password123"
-      }));
+      });
+      u.on('didCreate', function() {
+        return App.Router.router.transitionTo("registered");
+      });
+      return this.set('content', u);
     },
     register: function() {
       return DS.defaultStore.commit();
@@ -163,7 +169,6 @@
       buildURL: function(record, suffix) {
         var s;
         if (record === 'user') {
-          record = "ember_user";
           s = this._super(record, suffix);
           return s + ".json";
         } else {
@@ -214,7 +219,12 @@
       app.RegisterController = this.controllers.RegisterController;
       app.Auth = this.Auth.Auth(ops);
       require("./templates");
+      setupAuthUrls();
       return setupHashType();
+    },
+    setupRouter: function(router) {
+      router.route("register");
+      return router.route('registered');
     },
     registerOps: function(ops) {
       return this.defaultOps = ops;
@@ -346,6 +356,8 @@
 Em.TEMPLATES['_user_status'] = Em.Handlebars.compile('<span class="user-status">   {{#if App.Auth.signedIn}}     Signed In as {{App.Auth.user.email}}     {{render sign_out}}   {{else}}     {{render sign_in}}   {{/if}} </span>');
 
 Em.TEMPLATES['register'] = Em.Handlebars.compile('<div class="register">   <form class="register-form">     <span class="email-field">       Email: {{view Em.TextField valueBinding="email"}}<br>     </span>      <span class="password-field">       Password: {{view Em.TextField valueBinding="password"}}<br>     </span>          <button {{action "register"}}>Register</button>   </form> </div>');
+
+Em.TEMPLATES['registered'] = Em.Handlebars.compile('<span class="registered">   Successfully Registered </span>');
 
 Em.TEMPLATES['sign_in'] = Em.Handlebars.compile('<form class="form-inline login-form">   {{#if showLoginForm}}     <span class="email-field">       {{view Em.TextField valueBinding="email" placeholder="Email"}}      </span>      <span class="password-field">       {{view Em.TextField valueBinding="password" placeholder="Password"}}     </span>     <span class="submit-button">       <button {{action "login"}}>Login</button>     </span>      {{#linkTo "register"}}Register{{/linkTo}}   {{else}}     <a {{bindAttr href="dropboxUrl"}}>Login with Dropbox</a>   {{/if}} </form>');
 

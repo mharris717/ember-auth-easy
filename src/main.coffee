@@ -12,7 +12,6 @@ setupAuthUrls = ->
   DS.RESTAdapter.reopen
     buildURL: (record, suffix) ->
       if record == 'user'
-        record = "ember_user" 
         s = @._super(record, suffix)
         s + ".json"
       else
@@ -46,8 +45,12 @@ auth =
     app.RegisterController = @controllers.RegisterController
     app.Auth = @Auth.Auth(ops)
     require("./templates")
-    #setupAuthUrls()
+    setupAuthUrls()
     setupHashType()
+
+  setupRouter: (router) ->
+    router.route("register");
+    router.route('registered');
 
   registerOps: (ops) ->
     @defaultOps = ops

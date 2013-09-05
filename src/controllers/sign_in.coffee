@@ -21,6 +21,8 @@ Appx.SignInController = Em.ObjectController.extend
     console.mylog "login ops"
     console.mylog ops
 
+    ops.store = @get('store')
+
     App.Auth.signIn(ops)
 
   showLoginForm: (-> true).property()

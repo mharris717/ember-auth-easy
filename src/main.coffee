@@ -1,6 +1,6 @@
 possAct = (f) ->
   if typeof(Em) == 'undefined'
-    f
+    f()
   else
     f()
 
@@ -17,10 +17,18 @@ setupAuthUrls = ->
       else
         @._super(record, suffix)
 
-setupHashType = ->
-  DS.RESTAdapter.registerTransform 'hash',
+setupHashType = (app) ->
+  DS.HashTransform = DS.Transform.extend
     serialize: (value) -> value
     deserialize: (value) -> value
+
+  if DS.RESTAdapter.registerTransform
+    DS.RESTAdapter.registerTransform 'hash',
+      serialize: (value) -> value
+      deserialize: (value) -> value
+  else
+    app.register('transform:hash',DS.HashTransform)
+
 
 getControllers = ->
   res = require("./controllers/sign_in")
@@ -46,7 +54,7 @@ auth =
     app.Auth = @Auth.Auth(ops)
     require("./templates")
     setupAuthUrls()
-    setupHashType()
+    #setupHashType(app)
 
   setupRouter: (router) ->
     router.route("register");
@@ -75,7 +83,7 @@ Em.Auth.Request.MyDummy = Em.Object.extend
 
     if @validCreds(opts.data.email,opts.data.password)
       @auth.trigger 'signInSuccess'
-      App.Auth.set 'user', App.User.createRecord(email: opts.data.email, id: 1, auth_token: "token123")
+      App.Auth.set 'user', opts.store.createRecord(App.User, {email: opts.data.email, id: 1, auth_token: "token123"})
     else
       @auth.trigger 'signInError'
     @auth.trigger 'signInComplete'

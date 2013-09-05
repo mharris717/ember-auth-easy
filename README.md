@@ -21,13 +21,17 @@ EmberAuth.setupApp(App);
 // If your ember app is on a different url
 EmberAuth.setupApp(App, {baseUrl: "http://serverurl.com"});
 
-ADD ROUTE FUNC
+// Add routes
+App.Router.map(function() {
+  .....
+  EmberAuth.setupRouter(this);
+});
 ```
 
 This does the following:
 * Adds controllers for sign in and sign out.
-* Adds a User model
-* Sets the Auth value on your app
+* Adds a User model.
+* Sets the Auth value on your app.
 * Adds several templates for sign in/sign out (which can be overriden).
 * Sets up the Auth object with reasonable defaults.
-
+* Adds appropriate routes.

@@ -68,7 +68,7 @@
       var u,
         _this = this;
       this._super();
-      u = App.User.createRecord({
+      u = this.get('store').createRecord(App.User, {
         email: "user2@fake.com",
         password: "password123"
       });
@@ -78,7 +78,7 @@
       return this.set('content', u);
     },
     register: function() {
-      return DS.defaultStore.commit();
+      return this.get('store').commit();
     }
   });
 
@@ -118,6 +118,7 @@
       }
       console.mylog("login ops");
       console.mylog(ops);
+      ops.store = this.get('store');
       return App.Auth.signIn(ops);
     },
     showLoginForm: (function() {
@@ -154,7 +155,7 @@
 
   possAct = function(f) {
     if (typeof Em === 'undefined') {
-      return f;
+      return f();
     } else {
       return f();
     }
@@ -178,8 +179,8 @@
     });
   };
 
-  setupHashType = function() {
-    return DS.RESTAdapter.registerTransform('hash', {
+  setupHashType = function(app) {
+    DS.HashTransform = DS.Transform.extend({
       serialize: function(value) {
         return value;
       },
@@ -187,6 +188,18 @@
         return value;
       }
     });
+    if (DS.RESTAdapter.registerTransform) {
+      return DS.RESTAdapter.registerTransform('hash', {
+        serialize: function(value) {
+          return value;
+        },
+        deserialize: function(value) {
+          return value;
+        }
+      });
+    } else {
+      return app.register('transform:hash', DS.HashTransform);
+    }
   };
 
   getControllers = function() {
@@ -219,8 +232,7 @@
       app.RegisterController = this.controllers.RegisterController;
       app.Auth = this.Auth.Auth(ops);
       require("./templates");
-      setupAuthUrls();
-      return setupHashType();
+      return setupAuthUrls();
     },
     setupRouter: function(router) {
       router.route("register");
@@ -255,7 +267,7 @@
       this.send(opts);
       if (this.validCreds(opts.data.email, opts.data.password)) {
         this.auth.trigger('signInSuccess');
-        App.Auth.set('user', App.User.createRecord({
+        App.Auth.set('user', opts.store.createRecord(App.User, {
           email: opts.data.email,
           id: 1,
           auth_token: "token123"

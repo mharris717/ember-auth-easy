@@ -12,7 +12,7 @@ Ember Auth Easy is also available as an npm module.
 
 ### How to use
 
-After including ember-auth-easy.js and creating your App, call EmberAuth.setupApp
+After including ember-auth-easy.js and creating your App, call EmberAuth.setupApp and EmberAuth.setupRouter
 
 ```javascript
 // If your ember app is on the same url as your server    
@@ -35,3 +35,5 @@ This does the following:
 * Adds several templates for sign in/sign out (which can be overriden).
 * Sets up the Auth object with reasonable defaults.
 * Adds appropriate routes.
+
+Once a user logs in, all subsequent requests have an auth_token parameter added to them. 

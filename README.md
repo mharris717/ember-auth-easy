@@ -12,20 +12,16 @@ Ember Auth Easy is also available as an npm module.
 
 ### How to use
 
-After including ember-auth-easy.js and creating your App, call EmberAuth.setupApp and EmberAuth.setupRouter
+After including ember-auth-easy.js and creating your App, the only setup required is if your ember app is on a different URL than your server
 
 ```javascript
-// If your ember app is on the same url as your server    
-EmberAuth.setupApp(App);
-
 // If your ember app is on a different url
-EmberAuth.setupApp(App, {baseUrl: "http://serverurl.com"});
+EmberAuth.registerOps({baseUrl: "http://serverurl.com"});
+```
 
-// Add routes
-App.Router.map(function() {
-  .....
-  EmberAuth.setupRouter(this);
-});
+In your template, render the user status partial:
+```
+  {{partial user_status}}
 ```
 
 This does the following:

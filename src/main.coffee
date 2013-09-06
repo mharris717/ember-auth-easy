@@ -1,39 +1,6 @@
-possAct = (f) ->
-  if typeof(Em) == 'undefined'
-    f()
-  else
-    f()
-
 console.mylog = (str) ->
   #console.debug str
   3
-
-setupAuthUrls = ->
-  DS.RESTAdapter.reopen
-    buildURL: (record, suffix) ->
-      if record == 'user'
-        s = @._super(record, suffix)
-        s + ".json"
-      else
-        @._super(record, suffix)
-
-setupHashType = (app) ->
-  DS.HashTransform = DS.Transform.extend
-    serialize: (value) -> value
-    deserialize: (value) -> value
-
-  if DS.RESTAdapter.registerTransform
-    DS.RESTAdapter.registerTransform 'hash',
-      serialize: (value) -> value
-      deserialize: (value) -> value
-  else
-    app.register('transform:hash',DS.HashTransform)
-
-
-getControllers = ->
-  res = require("./controllers/sign_in")
-  res = $.extend res, require("./controllers/register")
-  res
 
 auth = 
   foo: -> return 14
@@ -41,10 +8,17 @@ auth =
   double: (x) ->
     return x * 2
 
-  controllers: possAct -> getControllers()
-  models: possAct -> require("./models/user")
-  Auth: possAct -> require("./auth_setup")
-  #setup: require './module_setup'
+  setupAuthUrls: ->
+    DS.RESTAdapter.reopen
+      buildURL: (record, suffix) ->
+        s = @._super(record, suffix)
+        if record == 'user' && !s.match(".json$")
+          s += ".json"
+        s
+
+  controllers: $.extend require("./controllers/sign_in"), require("./controllers/register")
+  models: require("./models/user")
+  Auth: require("./auth_setup")
 
   setupApp: (app,ops) ->
     app.User = @models.User
@@ -52,9 +26,8 @@ auth =
     app.SignOutController = @controllers.SignOutController
     app.RegisterController = @controllers.RegisterController
     app.Auth = @Auth.Auth(ops)
-    require("./templates")
-    setupAuthUrls()
-    #setupHashType(app)
+    
+    @setupAuthUrls()
 
   setupRouter: (router) ->
     router.route("register");
@@ -65,58 +38,23 @@ auth =
   getDefaultOps: ->
     @defaultOps || {}
 
+setupEmberInit = ->
+  Ember.onLoad 'Ember.Application', (Application) ->
+    Application.initializer
+      name: "ember-auth-easy"
+      initialize: (container, app) ->
+        auth.setupApp(app,auth.getDefaultOps())
+        app.Router.map ->
+          auth.setupRouter(this)
+
+
+
+setupEmberInit()
+
 if typeof(window) != 'undefined'
   window.EmberAuth = auth 
 
-Em.Auth.Request.MyDummy = Em.Object.extend
-  validCreds: (email,password) ->
-    if email == "user@fake.com" && password == 'password123'
-      true
-    else
-      false
-
-  signIn: (url, opts = {}) ->
-    console.mylog "sign in opts"
-    console.mylog opts
-
-    @send(opts)
-
-    if @validCreds(opts.data.email,opts.data.password)
-      @auth.trigger 'signInSuccess'
-      App.Auth.set 'user', opts.store.createRecord(App.User, {email: opts.data.email, id: 1, auth_token: "token123"})
-    else
-      @auth.trigger 'signInError'
-    @auth.trigger 'signInComplete'
-    {email: opts.data.email, id: 1, auth_token: "token123"}
-
-  signOut: (url, opts = {}) ->
-    @send opts
-    switch opts.status
-      when 'success' then @auth.trigger 'signOutSuccess'
-      when 'error'   then @auth.trigger 'signOutError'
-    @auth.trigger 'signOutComplete'
-
-  send: (opts = {}) ->
-    console.mylog "MyDummy send"
-    console.mylog opts
-    Em.Auth.Request.MyDummy.addSendOpts(opts)
-    
-    res = {}
-    for k,v of opts
-      res[k] = v
-    res
-    if @validCreds(opts.data.email,opts.data.password)
-      res.auth_token = "token123"
-
-    @auth._response.canonicalize res
-
-Em.Auth.Request.MyDummy.reopenClass
-  addSendOpts: (ops) ->
-    @getOptsList().push(ops)
-  getOptsList: ->
-    @optsList ||= []
-    @optsList
-  clearOptsList: ->
-    @optsList = []
+require("./dummy_request")
+require("./templates")
 
 module.exports = auth

@@ -68,16 +68,14 @@
       var u,
         _this = this;
       this._super();
-      u = this.get('store').createRecord(App.User, {
-        email: "user2@fake.com",
-        password: "password123"
-      });
+      u = this.get('store').createRecord(App.User, {});
       u.on('didCreate', function() {
         return App.Router.router.transitionTo("registered");
       });
       return this.set('content', u);
     },
     register: function() {
+      App.RegisterController.justRegistered = this.get('content');
       return this.get('store').commit();
     }
   });

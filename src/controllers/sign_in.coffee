@@ -9,21 +9,22 @@ Appx.SignInController = Em.ObjectController.extend
     console.mylog "in empty addlLoginOps"
     {}
 
-  login: ->
-    console.mylog "in login"
-    ops = 
-      data: 
-        "email": @$email
-        "password": @$password
-    for k,v of @addlLoginOps()
-      ops[k] = v
+  actions: 
+    login: ->
+      console.mylog "in login"
+      ops = 
+        data: 
+          "email": @$email
+          "password": @$password
+      for k,v of @addlLoginOps()
+        ops[k] = v
 
-    console.mylog "login ops"
-    console.mylog ops
+      console.mylog "login ops"
+      console.mylog ops
 
-    ops.store = @get('store')
+      ops.store = @get('store')
 
-    App.Auth.signIn(ops)
+      App.Auth.signIn(ops)
 
   showLoginForm: (-> true).property()
 
@@ -37,9 +38,10 @@ Appx.SignOutController = Em.ObjectController.extend
     @_super()
     @set "content",Em.Object.create()
 
-  logout: ->
-    console.mylog "logout"
-    App.Auth.get("_session").clear()
-    App.Auth.trigger "signOutSuccess"
+  actions:
+    logout: ->
+      console.mylog "logout"
+      App.Auth.get("_session").clear()
+      App.Auth.trigger "signOutSuccess"
 
 module.exports = Appx

@@ -74,9 +74,11 @@
       });
       return this.set('content', u);
     },
-    register: function() {
-      App.RegisterController.justRegistered = this.get('content');
-      return this.get('store').commit();
+    actions: {
+      register: function() {
+        App.RegisterController.justRegistered = this.get('content');
+        return this.get('store').commit();
+      }
     }
   });
 
@@ -100,24 +102,26 @@
       console.mylog("in empty addlLoginOps");
       return {};
     },
-    login: function() {
-      var k, ops, v, _ref;
-      console.mylog("in login");
-      ops = {
-        data: {
-          "email": this.get('email'),
-          "password": this.get('password')
+    actions: {
+      login: function() {
+        var k, ops, v, _ref;
+        console.mylog("in login");
+        ops = {
+          data: {
+            "email": this.get('email'),
+            "password": this.get('password')
+          }
+        };
+        _ref = this.addlLoginOps();
+        for (k in _ref) {
+          v = _ref[k];
+          ops[k] = v;
         }
-      };
-      _ref = this.addlLoginOps();
-      for (k in _ref) {
-        v = _ref[k];
-        ops[k] = v;
+        console.mylog("login ops");
+        console.mylog(ops);
+        ops.store = this.get('store');
+        return App.Auth.signIn(ops);
       }
-      console.mylog("login ops");
-      console.mylog(ops);
-      ops.store = this.get('store');
-      return App.Auth.signIn(ops);
     },
     showLoginForm: (function() {
       return true;
@@ -135,10 +139,12 @@
       this._super();
       return this.set("content", Em.Object.create());
     },
-    logout: function() {
-      console.mylog("logout");
-      App.Auth.get("_session").clear();
-      return App.Auth.trigger("signOutSuccess");
+    actions: {
+      logout: function() {
+        console.mylog("logout");
+        App.Auth.get("_session").clear();
+        return App.Auth.trigger("signOutSuccess");
+      }
     }
   });
 

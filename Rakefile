@@ -46,10 +46,14 @@ end
 namespace :test do
   namespace :app do
     task :update do
-      ec "cd test_app && git pull origin master && cd .. && git add test_app && git commit -m 'Updated testapp ref'"
+      ec "cd test_app && git reset --hard && git pull origin master && cd .. && git add test_app && git commit -m 'Updated testapp ref'"
     end
     task :test do
-      run_shell_test "cd test_app && npm install && rake full_install && npm test"
+      run_shell_test "cd test_app && git pull origin master && npm install && rake full_install"
+      if FileTest.exist?("/code/orig/ember_npm_projects")
+        run_shell_test "cd test_app && rake authlink"
+      end
+      run_shell_test "cd test_app && npm test"
     end
   end
 
@@ -58,7 +62,7 @@ namespace :test do
   end
 end
 
-task :release => ['test:app:update',:dist,'test:run'] do
+task :release => [:dist,'test:run'] do
   ec "git push origin master"
 end
 

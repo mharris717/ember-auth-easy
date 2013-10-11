@@ -9,6 +9,11 @@ Appx.User.reopenClass
   double: (x) ->
     x*2
 
+  find: (id) ->
+    @store.find('user',id)
+
+
+
 Appx.User.FIXTURES = [{id: 1, email: "mharris717@gmail.com"}]
 
 module.exports = Appx

@@ -13,6 +13,6 @@ Appx.RegisterController = Em.ObjectController.extend
   actions: 
     register: ->
       App.RegisterController.justRegistered = @get('content')
-      @get('store').commit()
+      #@get('store').commit()
 
 module.exports = Appx

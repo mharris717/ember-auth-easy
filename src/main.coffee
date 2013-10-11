@@ -20,6 +20,8 @@ auth =
   models: require("./models/user")
   Auth: require("./auth_setup")
 
+  testHelpers: require("./test_helpers")
+
   setupApp: (app,ops) ->
     app.User = @models.User
     app.SignInController = @controllers.SignInController

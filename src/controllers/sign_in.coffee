@@ -24,6 +24,8 @@ Appx.SignInController = Em.ObjectController.extend
 
       ops.store = @get('store')
 
+      App.User.store = @store
+
       App.Auth.signIn(ops)
 
   showLoginForm: (-> true).property()

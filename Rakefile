@@ -6,12 +6,23 @@ def ec(cmd)
   puts `#{cmd}`
 end
 
+def templates_names(name)
+  res = [name]
+  res << name[1..-1] if name[0..0] == "_"
+
+  res.map do |n|
+    [n,n.gsub("_","-"),n.gsub("-","_")]
+  end.flatten.uniq
+end
+
 def build_templates
   File.create "lib/templates.js",""
   Dir["src/templates/*.handlebars"].each do |f|
-    name = File.basename(f).split(".").first
+    base_name = File.basename(f).split(".").first
     body = File.read(f).gsub("\n"," ").gsub("'",'"')
-    File.append "lib/templates.js","Em.TEMPLATES['#{name}'] = Em.Handlebars.compile('#{body}');\n\n"
+    templates_names(base_name).each do |name|
+      File.append "lib/templates.js","Em.TEMPLATES['#{name}'] = Em.Handlebars.compile('#{body}');\n\n"
+    end
   end
 end
 

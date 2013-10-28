@@ -27,16 +27,23 @@ auth =
     app.SignInController = @controllers.SignInController
     app.SignOutController = @controllers.SignOutController
     app.RegisterController = @controllers.RegisterController
-    app.Auth = @Auth.Auth(ops)
+
+    authClass = @Auth.Auth(ops)
     
     @setupAuthUrls()
+
+    app.register "auth:main",authClass
+    app.inject "controller","auth","auth:main"
 
   setupRouter: (router) ->
     router.route("register");
     router.route('registered');
 
   registerOps: (ops) ->
-    @defaultOps = ops
+    @defaultOps ||= {}
+    for k,v of ops
+      @defaultOps[k] = v
+
   getDefaultOps: ->
     @defaultOps || {}
 

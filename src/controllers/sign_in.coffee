@@ -4,6 +4,8 @@ Appx.SignInController = Em.ObjectController.extend
   init: ->
     @_super()
     @set "content",Em.Object.create()
+    @set "email","mharris717@gmail.com"
+    @set "password","dfgdfgregegr"
 
   addlLoginOps: -> 
     console.mylog "in empty addlLoginOps"
@@ -26,7 +28,7 @@ Appx.SignInController = Em.ObjectController.extend
 
       App.User.store = @store
 
-      App.Auth.signIn(ops)
+      @get('auth').signIn(ops)
 
   showLoginForm: (-> true).property()
 
@@ -43,7 +45,7 @@ Appx.SignOutController = Em.ObjectController.extend
   actions:
     logout: ->
       console.mylog "logout"
-      App.Auth.get("_session").clear()
-      App.Auth.trigger "signOutSuccess"
+      @get('auth').get("_session").clear()
+      @get('auth').trigger "signOutSuccess"
 
 module.exports = Appx

@@ -22,7 +22,7 @@ Appx.Auth = (overrideOps) ->
     for k,v of overrideOps
       ops[k] = v
 
-  a = Em.Auth.create(ops)    
+  a = Em.Auth.extend(ops)    
 
   a.on "signInSuccess", ->
     console.mylog "signed in"
@@ -34,7 +34,7 @@ Appx.Auth = (overrideOps) ->
     ,1000
 
   a.on 'signInError', (a) ->
-    resp = App.Auth.$response
+    resp = a.$response
     console.mylog "sign in error #{resp}"
 
   a

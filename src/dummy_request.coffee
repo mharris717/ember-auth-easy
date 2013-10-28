@@ -13,7 +13,7 @@ Em.Auth.Request.MyDummy = Em.Object.extend
 
     if @validCreds(opts.data.email,opts.data.password)
       @auth.trigger 'signInSuccess'
-      App.Auth.set 'user', opts.store.createRecord(App.User, {email: opts.data.email, id: 1, auth_token: "token123"})
+      @auth.set 'user', opts.store.createRecord(App.User, {email: opts.data.email, id: 1, auth_token: "token123"})
     else
       @auth.trigger 'signInError'
     @auth.trigger 'signInComplete'

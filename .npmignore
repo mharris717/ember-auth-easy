@@ -2,3 +2,7 @@ node_modules
 src
 test_coffee
 dist
+tmp
+vendor
+test_app
+junk

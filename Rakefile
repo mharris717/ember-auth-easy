@@ -92,6 +92,7 @@ namespace :overlay do
       ec "npm install --save-dev grunt-contrib-coffee"
       ec "npm install"
       ec "bower install"
+      ec "ls vendor"
     end
   end
 

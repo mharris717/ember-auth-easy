@@ -33,7 +33,7 @@
    },
 
   "scripts": {
-    "test": "rake build && mocha test/*.js && rake test:app:test"
+    "test": "rake build && cd test_overlay_app && grunt test:ci"
   },
 
   "bin": {

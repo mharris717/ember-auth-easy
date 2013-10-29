@@ -1,0 +1,2 @@
+c.base "/code/orig/ember_npm_projects/overlays/base"
+c.overlay "/code/orig/ember_npm_projects/overlays/widget"

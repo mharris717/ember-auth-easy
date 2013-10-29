@@ -80,3 +80,36 @@ end
 task :readme do
   ec "~/gems/github-markdown-0.5.3/bin/gfm < README.md > tmp/README.html"
 end
+
+namespace :overlay do
+  task :build_inner do
+    root = File.expand_path(File.dirname(__FILE__))
+    app = "#{root}/test_overlay_app"
+    ec "rm -rf #{app}"
+    ec "/code/orig/fs_template/bin/fs_template #{root}/test_overlay #{root}/test_overlay_app"
+    raise 'bad' unless $?.success?
+    Dir.chdir(app) do
+      ec "npm install --save-dev grunt-contrib-coffee"
+      ec "npm install"
+    end
+  end
+
+  task :authlink do
+    res = {}
+    root = File.expand_path(File.dirname(__FILE__))
+    dir = "#{root}/test_overlay_app"
+    
+    res["#{dir}/vendor/ember-auth-easy/index.js"] = 
+    "/code/orig/ember_npm_projects/ember-auth-easy/dist/ember-auth-easy.js"
+
+    res["#{dir}/vendor/ember-auth/dist/ember-auth.js"] = 
+    "/code/orig/ember-auth/dist/ember-auth.js"
+
+    res.each do |target,source|
+      `rm #{target}`
+      `ln -s #{source} #{target}`
+    end
+  end
+
+  task :build => [:build_inner,:authlink]
+end

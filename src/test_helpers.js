@@ -23,9 +23,17 @@ helpers.register = function(email,password) {
   .click(".register-form button");
 }
 
-helpers.loggedInTest = function(name,f) {
+helpers.loggedInTest = function(name) {
+  var f = arguments[1];
+  var url = null;
+
+  if (arguments.length == 3) {
+    f = arguments[2];
+    url = arguments[1];
+  }
+
   return test(name, function() {
-    return EmberAuth.testHelpers.loginSuccessfully().then(f);
+    return EmberAuth.testHelpers.loginSuccessfully(url).then(f);
   })
 };
 

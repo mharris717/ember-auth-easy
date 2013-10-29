@@ -86,7 +86,7 @@ namespace :overlay do
     root = File.expand_path(File.dirname(__FILE__))
     app = "#{root}/test_overlay_app"
     ec "rm -rf #{app}"
-    ec "/code/orig/fs_template/bin/fs_template #{root}/test_overlay #{root}/test_overlay_app"
+    ec "fs_template #{root}/test_overlay #{root}/test_overlay_app"
     raise 'bad' unless $?.success?
     Dir.chdir(app) do
       ec "npm install --save-dev grunt-contrib-coffee"
@@ -109,6 +109,10 @@ namespace :overlay do
       `rm #{target}`
       `ln -s #{source} #{target}`
     end
+  end
+
+  task :test do
+
   end
 
   task :build => [:build_inner,:authlink]

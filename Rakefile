@@ -91,6 +91,7 @@ namespace :overlay do
     Dir.chdir(app) do
       ec "npm install --save-dev grunt-contrib-coffee"
       ec "npm install"
+      ec "bower install"
     end
   end
 

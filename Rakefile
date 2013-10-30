@@ -92,7 +92,6 @@ namespace :overlay do
       ec "npm install --save-dev grunt-contrib-coffee"
       ec "npm install"
       ec "bower install"
-      ec "ls vendor"
     end
   end
 
@@ -113,9 +112,14 @@ namespace :overlay do
     end
   end
 
-  task :test do
+  task :copy_dist do
+    root = File.expand_path(File.dirname(__FILE__))
+    source = "#{root}/dist/ember-auth-easy.js"
+    target = "#{root}/test_overlay_app/vendor/ember-auth-easy/index.js"
 
+    ec "rm #{target}"
+    ec "cp #{source} #{target}"
   end
 
-  task :build => [:build_inner,:authlink]
+  task :build => [:build_inner,:copy_dist]
 end

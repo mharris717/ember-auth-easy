@@ -3,4 +3,4 @@ before_install:
   - gem install mharris_ext coffee_short_get fs_template
   - npm install -g grunt-cli 
   - npm install -g bower
-  - rake overlay:build_inner
+  - rake overlay:build

@@ -122,4 +122,18 @@ namespace :overlay do
   end
 
   task :build => [:build_inner,:copy_dist]
+
+  task :test => [:dist,:build] do
+    app = File.expand_path(File.dirname(__FILE__) + "/test_overlay_app")
+    ec "cd #{app} && grunt test:ci"
+  end
+
+  task :test_inner do
+    app = File.expand_path(File.dirname(__FILE__) + "/test_overlay_app")
+    IO.popen("cd #{app} && grunt test:ci") do |io|
+      while res = io.read(1)
+        print res
+      end
+    end
+  end
 end

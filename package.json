@@ -20,7 +20,7 @@
   ],
 
   "dependencies": {
-    "ember-auth": ""
+    "ember-auth": "~8.0"
   },
 
   "devDependencies": {

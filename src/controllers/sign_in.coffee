@@ -14,10 +14,11 @@ Appx.SignInController = Em.ObjectController.extend
   actions: 
     login: ->
       console.mylog "in login"
-      ops = 
-        data: 
-          "email": @$email
-          "password": @$password
+      ops =
+        data:
+          "user":
+            "email": @$email
+            "password": @$password
       for k,v of @addlLoginOps()
         ops[k] = v
 

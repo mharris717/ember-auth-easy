@@ -109,8 +109,10 @@
         console.mylog("in login");
         ops = {
           data: {
-            "email": this.get('email'),
-            "password": this.get('password')
+            "user": {
+              "email": this.get('email'),
+              "password": this.get('password')
+            }
           }
         };
         _ref = this.addlLoginOps();

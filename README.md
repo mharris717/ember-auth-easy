@@ -32,4 +32,19 @@ This does the following:
 * Sets up the Auth object with reasonable defaults.
 * Adds appropriate routes.
 
-Once a user logs in, all subsequent requests have an auth_token parameter added to them. 
+Once a user logs in, all subsequent requests have an auth_token parameter added to them.
+
+
+### Developing and Improving Ember Auth Easy
+
+Ember auth easy development depends upon ruby, rake and node.
+
+Ember auth easy is designed to make it easy to build a new version of the tool
+using 'rake dist' on the commandline. Before running 'rake dist' for the first
+time install the required dependencies by execution the following commands
+on the commandline:
+
+```
+gem install mharris_ext coffee_short_get
+npm install -g coffee-script browserify
+```

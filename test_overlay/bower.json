@@ -4,4 +4,4 @@
 </overlay>
 
 ,"ember-auth-easy": "https://raw.github.com/mharris717/ember-auth-easy/master/dist/ember-auth-easy.js",
-"ember-auth": "https://raw.github.com/mharris717/ember-auth/master/dist/ember-auth.js"
+"ember-auth": "~8.0"

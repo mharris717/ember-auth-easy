@@ -113,8 +113,8 @@ namespace :overlay do
     res["#{dir}/vendor/ember-auth-easy/index.js"] = 
     "/code/orig/ember_npm_projects/ember-auth-easy/dist/ember-auth-easy.js"
 
-    res["#{dir}/vendor/ember-auth/dist/ember-auth.js"] = 
-    "/code/orig/ember-auth/dist/ember-auth.js"
+    #res["#{dir}/vendor/ember-auth/dist/ember-auth.js"] = 
+    #{}"/code/orig/ember-auth/dist/ember-auth.js"
 
     res.each do |target,source|
       `rm #{target}`

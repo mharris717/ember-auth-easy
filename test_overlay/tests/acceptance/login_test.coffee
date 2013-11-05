@@ -1,6 +1,6 @@
 `import Widget from 'appkit/models/widget'`
 
-module 'Acceptances - Widget', 
+module 'Acceptances - Login', 
   setup: ->
     EmberAuth.testHelpers.setup ->
       Widget.setupFixtures()

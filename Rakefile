@@ -89,7 +89,6 @@ namespace :overlay do
     ec "fs_template #{root}/test_overlay #{root}/test_overlay_app"
     raise 'bad' unless $?.success?
     Dir.chdir(app) do
-      ec "npm install --save-dev grunt-contrib-coffee"
       ec "npm install"
       ec "bower install"
     end

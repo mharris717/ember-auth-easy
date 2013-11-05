@@ -65,18 +65,20 @@
 
   Appx.RegisterController = Em.ObjectController.extend({
     init: function() {
-      var u,
-        _this = this;
+      var u;
       this._super();
       u = this.get('store').createRecord(App.User, {});
-      u.on('didCreate', function() {
-        return App.Router.router.transitionTo("registered");
-      });
       return this.set('content', u);
     },
     actions: {
       register: function() {
-        return App.RegisterController.justRegistered = this.get('content');
+        var _this = this;
+        App.RegisterController.justRegistered = this.get('content');
+        return this.get('content').save().then(function() {
+          return App.__container__.lookup('router:main').transitionTo('registered');
+        }, function() {
+          throw "register save failed";
+        });
       }
     }
   });
@@ -95,9 +97,7 @@
   Appx.SignInController = Em.ObjectController.extend({
     init: function() {
       this._super();
-      this.set("content", Em.Object.create());
-      this.set("email", "mharris717@gmail.com");
-      return this.set("password", "dfgdfgregegr");
+      return this.set("content", Em.Object.create());
     },
     addlLoginOps: function() {
       console.mylog("in empty addlLoginOps");

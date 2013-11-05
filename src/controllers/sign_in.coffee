@@ -4,9 +4,7 @@ Appx.SignInController = Em.ObjectController.extend
   init: ->
     @_super()
     @set "content",Em.Object.create()
-    @set "email","mharris717@gmail.com"
-    @set "password","dfgdfgregegr"
-
+    
   addlLoginOps: -> 
     console.mylog "in empty addlLoginOps"
     {}

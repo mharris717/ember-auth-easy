@@ -1,4 +1,5 @@
 language: node_js
 before_install:
+  - bundle install
   - npm install -g grunt-cli bower
   - rake overlay:build

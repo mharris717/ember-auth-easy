@@ -37,14 +37,29 @@ Once a user logs in, all subsequent requests have an auth_token parameter added 
 
 ### Developing and Improving Ember Auth Easy
 
-Ember auth easy development depends upon ruby, rake and node.
+Ember Auth Easy development depends upon ruby, rake and node.
 
-Ember auth easy is designed to make it easy to build a new version of the tool
+Ember Auth Easy is designed to make it easy to build a new version of the tool
 using 'rake dist' on the commandline. Before running 'rake dist' for the first
-time install the required dependencies by execution the following commands
+time install the required dependencies by executing the following commands
 on the commandline:
 
 ```
-gem install mharris_ext coffee_short_get
-npm install -g coffee-script browserify
+bundle install
+```
+
+### Running the test app
+
+[![Build Status](https://travis-ci.org/mharris717/ember-auth-easy.png)](https://travis-ci.org/mharris717/ember-auth-easy)
+
+There is a test app inclued with Ember Auth Easy. 
+
+To build and run it:
+
+```
+# if not already installed
+# possibly with sudo
+npm install -g bower grunt-cli
+
+bundle exec rake overlay:test
 ```

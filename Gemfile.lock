@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    andand (1.3.3)
+    coffee_short_get (0.2.0)
+    facets (2.9.3)
+    fattr (2.2.1)
+    fs_template (0.1.2)
+      andand
+      mharris_ext
+    mharris_ext (1.7.0)
+      facets
+      fattr
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  coffee_short_get
+  fs_template
+  mharris_ext

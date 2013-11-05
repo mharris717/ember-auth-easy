@@ -28,8 +28,8 @@ end
 
 task :build do
   ec "rm -rf lib"
-  ec "coffee -o lib/ -c src/"
-  ec "coffee -o test/ -c test_coffee/"
+  ec "./node_modules/.bin/coffee -o lib/ -c src/"
+  ec "./node_modules/.bin/coffee -o test/ -c test_coffee/"
   ec "cp -r src/*.js lib"
   ec "rm -rf lib/vendor"
   ec "cp -r vendor lib"
@@ -51,7 +51,7 @@ def run_shell_test(cmd)
 end
 
 task :dist => :build do
-  ec "browserify lib/main.js > dist/ember-auth-easy.js"
+  ec "./node_modules/.bin/browserify lib/main.js > dist/ember-auth-easy.js"
 end
 
 namespace :test do
@@ -82,6 +82,17 @@ task :readme do
 end
 
 namespace :overlay do
+  def ensure_npm_global_present(name,package_name=name)
+    res = `#{name} --help`
+  rescue => exp
+    raise "Cannot find #{name}, please run 'npm install -g #{package_name}' (possibly with sudo)."
+  end
+
+  task :ensure_npm_globals_present do
+    ensure_npm_global_present "grunt","grunt-cli"
+    ensure_npm_global_present "bower"
+  end
+
   task :build_inner do
     root = File.expand_path(File.dirname(__FILE__))
     app = "#{root}/test_overlay_app"
@@ -120,7 +131,7 @@ namespace :overlay do
     ec "cp #{source} #{target}"
   end
 
-  task :build => [:build_inner,:copy_dist]
+  task :build => [:ensure_npm_globals_present,:build_inner,:copy_dist]
 
   task :test => [:dist,:build] do
     app = File.expand_path(File.dirname(__FILE__) + "/test_overlay_app")

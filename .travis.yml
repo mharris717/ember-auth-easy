@@ -1,6 +1,4 @@
 language: node_js
 before_install:
-  - gem install mharris_ext coffee_short_get fs_template
-  - npm install -g grunt-cli 
-  - npm install -g bower
+  - npm install -g grunt-cli bower
   - rake overlay:build

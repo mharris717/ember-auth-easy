@@ -67,7 +67,7 @@
     init: function() {
       var u;
       this._super();
-      u = this.get('store').createRecord(App.User, {});
+      u = this.get('store').createRecord('user', {});
       return this.set('content', u);
     },
     actions: {

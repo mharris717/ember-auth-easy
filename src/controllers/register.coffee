@@ -3,7 +3,7 @@ Appx = {}
 Appx.RegisterController = Em.ObjectController.extend
   init: ->
     @_super()
-    u = @get('store').createRecord(App.User,{})
+    u = @get('store').createRecord('user',{})
     @set 'content',u
 
   actions: 

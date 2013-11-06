@@ -11,6 +11,7 @@ GEM
     mharris_ext (1.7.0)
       facets
       fattr
+    rake (10.1.0)
 
 PLATFORMS
   ruby
@@ -19,3 +20,4 @@ DEPENDENCIES
   coffee_short_get
   fs_template
   mharris_ext
+  rake

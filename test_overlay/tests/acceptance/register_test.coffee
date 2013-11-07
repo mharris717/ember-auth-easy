@@ -12,10 +12,7 @@ test 'open register form', ->
 
 test 'submit registration', ->
   email = "user#{parseInt(Math.random()*10000000000000)}@fake.com"
-  visit("/register")
-  .fillIn(".register-form .email-field input",email)
-  .fillIn(".register-form .password-field input","password123")
-  .click(".register-form button").then ->
+  EmberAuth.testHelpers.register(email,"password123").then ->
     equal find(".registered").text().trim(),"Successfully Registered"
     App.__container__.lookup("store:main").find('user').then (users) ->
       equal users.get('length'),2

@@ -3,11 +3,6 @@ console.mylog = (str) ->
   3
 
 auth = 
-  foo: -> return 14
-
-  double: (x) ->
-    return x * 2
-
   setupAuthUrls: ->
     DS.RESTAdapter.reopen
       buildURL: (record, suffix) ->
@@ -19,7 +14,6 @@ auth =
   controllers: $.extend require("./controllers/sign_in"), require("./controllers/register")
   models: require("./models/user")
   Auth: require("./auth_setup")
-
   testHelpers: require("./test_helpers")
 
   setupApp: (app,ops) ->
@@ -55,8 +49,6 @@ setupEmberInit = ->
         auth.setupApp(app,auth.getDefaultOps())
         app.Router.map ->
           auth.setupRouter(this)
-
-
 
 setupEmberInit()
 

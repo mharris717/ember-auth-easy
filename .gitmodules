@@ -1,3 +1,0 @@
-[submodule "test_app"]
-	path = test_app
-	url = https://github.com/mharris717/ember-auth-testapp.git

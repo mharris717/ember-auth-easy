@@ -54,29 +54,6 @@ task :dist => :build do
   ec "./node_modules/.bin/browserify lib/main.js > dist/ember-auth-easy.js"
 end
 
-namespace :test do
-  namespace :app do
-    task :update do
-      ec "cd test_app && git reset --hard && git pull origin master && cd .. && git add test_app && git commit -m 'Updated testapp ref'"
-    end
-    task :test do
-      run_shell_test "cd test_app && git pull origin master && npm install && rake full_install"
-      if FileTest.exist?("/code/orig/ember_npm_projects")
-        run_shell_test "cd test_app && rake authlink"
-      end
-      run_shell_test "cd test_app && npm test"
-    end
-  end
-
-  task :run do
-    run_shell_test "npm test"
-  end
-end
-
-task :release => [:dist,'test:run'] do
-  ec "git push origin master"
-end
-
 task :readme do
   ec "~/gems/github-markdown-0.5.3/bin/gfm < README.md > tmp/README.html"
 end

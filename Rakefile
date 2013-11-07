@@ -151,6 +151,7 @@ end
 namespace :test_server do
   task :build do
     dir = File.expand_path(File.dirname(__FILE__) + "/test_server")
+    `rm -rf #{dir}` if FileTest.exist?(dir)
     ec "/code/orig/fs_template/bin/fs_template https://github.com/mharris717/ember_auth_rails_overlay.git #{dir}"
   end
 end

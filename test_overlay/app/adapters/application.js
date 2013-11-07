@@ -1,4 +1,4 @@
 <overlay>
   action: replace
   base: Em.testing
-</overlay>testingMode() == 'isolated'
+</overlay>window.testingMode && testingMode() == 'isolated'

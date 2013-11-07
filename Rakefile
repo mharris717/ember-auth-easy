@@ -42,6 +42,13 @@ task :build do
   end
 end
 
+task :clean do
+  %w(test_overlay_app test_server lib test tmp).each do |dir|
+    dir = File.dirname(__FILE__) + "/#{dir}"
+    ec "rm -rf #{dir}" if FileTest.exist?(dir)
+  end
+end
+
 def run_shell_test(cmd)
   puts cmd
   res = `#{cmd}`
@@ -99,7 +106,7 @@ namespace :overlay do
     end
   end
 
-  task :copy_dist do
+  task :copy_dist => [:dist] do
     root = File.expand_path(File.dirname(__FILE__))
     source = "#{root}/dist/ember-auth-easy.js"
     target = "#{root}/test_overlay_app/vendor/ember-auth-easy/index.js"
@@ -110,7 +117,7 @@ namespace :overlay do
 
   task :build => [:ensure_npm_globals_present,:build_inner,:copy_dist]
 
-  task :test => [:dist,:build] do
+  task :test => [:build] do
     app = File.expand_path(File.dirname(__FILE__) + "/test_overlay_app")
     ec "cd #{app} && grunt test:ci"
   end

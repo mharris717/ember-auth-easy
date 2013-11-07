@@ -268,12 +268,6 @@
   };
 
   auth = {
-    foo: function() {
-      return 14;
-    },
-    double: function(x) {
-      return x * 2;
-    },
     setupAuthUrls: function() {
       return DS.RESTAdapter.reopen({
         buildURL: function(record, suffix) {

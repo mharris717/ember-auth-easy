@@ -5,7 +5,7 @@
   "keywords": ["ember", "emberjs", "ember.js", "auth", "authentication"],
   "homepage": "http://github.com/mharris717/ember-auth-easy",
   "bugs": "http://github.com/mharris717/ember-auth-easy/issues",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "lib/main.js",
 
   "author": {
@@ -34,7 +34,7 @@
    },
 
   "scripts": {
-    "test": "rake build && cd test_overlay_app && grunt test:ci"
+    "test": "rake overlay:test"
   },
 
   "bin": {

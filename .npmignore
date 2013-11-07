@@ -6,3 +6,6 @@ tmp
 vendor
 test_app
 junk
+test_overlay
+test_overlay_app
+test_server

@@ -1,6 +1,6 @@
 <overlay>
   action: insert
-  after: ember-data.js"
+  after: "ember-data-shim": "1.0.0-beta.3"
 </overlay>
 
 ,"ember-auth-easy": "https://raw.github.com/mharris717/ember-auth-easy/master/dist/ember-auth-easy.js",

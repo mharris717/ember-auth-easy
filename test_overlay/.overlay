@@ -1,2 +1,3 @@
 c.base "https://github.com/mharris717/eak_base_app.git"
+c.overlay "https://github.com/mharris717/eak_base_overlay.git"
 c.overlay "https://github.com/mharris717/widget_overlay.git"

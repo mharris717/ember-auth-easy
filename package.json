@@ -27,9 +27,6 @@
      "mocha": "",
      "should": "",
      "coffee-script": ">= 1.3",
-     "jsdom": "",
-     "jquery": "",
-     "handlebars":"",
      "browserify": ""
    },
 

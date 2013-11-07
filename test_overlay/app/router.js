@@ -1,6 +1,6 @@
 <overlay>
   action: insert
-  after: Router.map(function(){
+  after: Router.map(function() {
 </overlay>
 
   this.route("register");

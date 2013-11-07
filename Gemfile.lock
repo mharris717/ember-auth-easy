@@ -8,7 +8,7 @@ GEM
     mharris_ext (1.7.0)
       facets
       fattr
-    overapp (0.2.0)
+    overapp (0.3.0)
       andand
       mharris_ext
     rake (10.1.0)
@@ -19,5 +19,5 @@ PLATFORMS
 DEPENDENCIES
   coffee_short_get
   mharris_ext
-  overapp (>= 0.2.0)
+  overapp (>= 0.3.0)
   rake

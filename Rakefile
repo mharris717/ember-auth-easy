@@ -43,7 +43,7 @@ task :build do
 end
 
 task :clean do
-  %w(test_overlay_app test_server lib test tmp).each do |dir|
+  %w(test_overlay_app test_server lib test tmp node_modules).each do |dir|
     dir = File.dirname(__FILE__) + "/#{dir}"
     ec "rm -rf #{dir}" if FileTest.exist?(dir)
   end

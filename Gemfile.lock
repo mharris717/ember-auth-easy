@@ -5,12 +5,12 @@ GEM
     coffee_short_get (0.2.0)
     facets (2.9.3)
     fattr (2.2.1)
-    fs_template (0.2.0)
-      andand
-      mharris_ext
     mharris_ext (1.7.0)
       facets
       fattr
+    overapp (0.2.0)
+      andand
+      mharris_ext
     rake (10.1.0)
 
 PLATFORMS
@@ -18,6 +18,6 @@ PLATFORMS
 
 DEPENDENCIES
   coffee_short_get
-  fs_template (>= 0.2.0)
   mharris_ext
+  overapp (>= 0.2.0)
   rake

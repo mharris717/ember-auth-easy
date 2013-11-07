@@ -81,7 +81,7 @@ namespace :overlay do
     root = File.expand_path(File.dirname(__FILE__))
     app = "#{root}/test_overlay_app"
     ec "rm -rf #{app}"
-    ec "fs_template #{root}/test_overlay #{root}/test_overlay_app"
+    ec "overapp #{root}/test_overlay #{root}/test_overlay_app"
     raise 'bad' unless $?.success?
     Dir.chdir(app) do
       ec "npm install"
@@ -136,7 +136,7 @@ namespace :test_server do
   task :build do
     dir = File.expand_path(File.dirname(__FILE__) + "/test_server")
     `rm -rf #{dir}` if FileTest.exist?(dir)
-    ec "/code/orig/fs_template/bin/fs_template https://github.com/mharris717/ember_auth_rails_overlay.git #{dir}"
+    ec "overapp https://github.com/mharris717/ember_auth_rails_overlay.git #{dir}"
   end
 end
 

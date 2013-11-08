@@ -5,7 +5,7 @@
   "keywords": ["ember", "emberjs", "ember.js", "auth", "authentication"],
   "homepage": "http://github.com/mharris717/ember-auth-easy",
   "bugs": "http://github.com/mharris717/ember-auth-easy/issues",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "lib/main.js",
 
   "author": {

@@ -1,6 +1,8 @@
 <span class="user-status">
   {{#if auth.signedIn}}
-    Signed In as {{auth.user.email}}
+    <span class="signed-in">
+      Signed In as {{auth.user.email}}
+    </span>
     {{render sign_out}}
   {{else}}
     {{render sign_in}}

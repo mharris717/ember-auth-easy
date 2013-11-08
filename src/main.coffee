@@ -22,6 +22,8 @@ auth =
     app.SignOutController = @controllers.SignOutController
     app.RegisterController = @controllers.RegisterController
 
+    app.RegisterRoute = require("./routes/register")
+
     authClass = @Auth.Auth(ops)
     
     @setupAuthUrls()

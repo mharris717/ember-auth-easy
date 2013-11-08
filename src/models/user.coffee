@@ -14,6 +14,6 @@ Appx.User.reopenClass
 
 
 
-Appx.User.FIXTURES = [{id: 1, email: "mharris717@gmail.com"}]
+Appx.User.FIXTURES = [{id: 1, email: "user@fake.com", password: "password123"}]
 
 module.exports = Appx

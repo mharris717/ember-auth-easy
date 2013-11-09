@@ -4,10 +4,24 @@ module 'Acceptances - Login',
   setup: ->
     EmberAuth.testHelpers.setup ->
       Widget.setupFixtures()
+      #App.User.setupFixtures()
 
 test 'widget renders', ->
   equal 2,2
 
-loggedInTest 'login', "/widgets", ->
-  equal find(".widget").length,2
-  equal find(".widget:eq(0)").text().trim(),"Adam"
+loggedInTest 'login works', "/widgets", ->
+  wait().then ->
+    equal find(".user-status .signed-in").length,1
+
+loggedInTest 'login displays widgets', "/widgets", ->
+  App.__container__.lookup("store:main").find('widget')
+  wait().then ->
+    equal find(".widget").length,2
+    equal find(".widget:eq(0)").text().trim(),"Adam"
+
+test 'login failure works', ->
+  visit("/widgets").then ->
+    EmberAuth.testHelpers.loginFail().then ->
+      equal find(".widget").length,0
+      equal find(".user-status .signed-out").length,1
+      equal find(".user-status .signed-in").length,0

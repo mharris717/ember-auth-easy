@@ -26,6 +26,6 @@ test 'login after registration', ->
   email = "user#{parseInt(Math.random()*10000000000000)}@fake.com"
   EmberAuth.testHelpers.register(email,"password123").then ->
     text = find(".user-status .signed-in").text().trim()
-    matches = text.match("Signed In as")
+    matches = text.match("Signed In as") || []
     equal matches.length,1
     equal matches[0],"Signed In as"

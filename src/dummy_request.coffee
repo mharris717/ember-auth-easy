@@ -1,23 +1,43 @@
 Em.Auth.Request.MyDummy = Em.Object.extend
-  validCreds: (email,password) ->
-    if email == "user@fake.com" && password == 'password123'
-      true
-    else
-      false
+  validCreds: (email,password,opts) ->
+    console.debug "email: #{email} password: #{password}"
+    opts.store.find('user').then (users) ->
+      console.debug "users size #{users.length} #{users.get('length')}"
+      found = null
+      users.forEach (user) ->
+        console.debug "in loop email: #{user.get('email')} password: #{user.get('password')}"
+        if user.get('email') == email && user.get('password') == password
+          found = user
+
+      if found
+        opts.success(found)
+      else
+        opts.failure()
+
+
+
 
   signIn: (url, opts = {}) ->
     console.mylog "sign in opts"
     console.mylog opts
 
-    @send(opts)
+    #@send(opts)
 
-    if @validCreds(opts.data.email,opts.data.password)
-      @auth.trigger 'signInSuccess'
-      @auth.set 'user', opts.store.createRecord(App.User, {email: opts.data.email, id: 1, auth_token: "token123"})
-    else
-      @auth.trigger 'signInError'
-    @auth.trigger 'signInComplete'
-    {email: opts.data.email, id: 1, auth_token: "token123"}
+    @validCreds opts.data.user.email,opts.data.user.password, 
+      store: opts.store
+      success: (user) =>
+        console.debug "is valid"
+        @auth.trigger 'signInSuccess'
+        @auth.set 'user', user
+        @auth.trigger 'signInComplete'
+      failure: =>
+        console.debug "is not valid"
+        @auth.trigger 'signInError'
+        @auth.trigger 'signInComplete'
+
+
+  signInx: ->
+    @auth.trigger 'signInError' 
 
   signOut: (url, opts = {}) ->
     @send opts

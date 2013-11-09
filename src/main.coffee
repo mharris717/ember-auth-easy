@@ -1,5 +1,5 @@
 console.mylog = (str) ->
-  #console.debug str
+  console.debug str
   3
 
 auth = 

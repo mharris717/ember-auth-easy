@@ -12,8 +12,10 @@ Appx.User.reopenClass
   find: (id) ->
     @store.find('user',id)
 
+  setupFixtures: ->
+    @FIXTURES = []
+    @FIXTURES.push({id: 1, email: "user@fake.com", password: "password123"})
 
-
-Appx.User.FIXTURES = [{id: 1, email: "user@fake.com", password: "password123"}]
+Appx.User.setupFixtures()
 
 module.exports = Appx

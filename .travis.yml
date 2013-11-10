@@ -4,6 +4,6 @@ before_install:
   - npm install -g grunt-cli bower
 before_script:
   - rake test_server:build
-  - cd test_server && bundle install && cd ..
+  - cd test_server && bundle install && rake db:migrate db:seed && cd ..
   - cd test_server && rails server -p 5901 &
 script: npm test

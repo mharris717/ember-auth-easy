@@ -33,7 +33,7 @@ window.testingMode = function() {
   }
 };
 
-testingMode("server");
+testingMode("isolated");
 
 testingMode({
   isolated: function() {

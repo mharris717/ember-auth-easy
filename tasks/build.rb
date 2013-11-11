@@ -66,5 +66,6 @@ task :dist => :build do
 end
 
 task :readme do
+  `mkdir tmp` unless FileTest.exist?("tmp")
   ec "~/gems/github-markdown-0.5.3/bin/gfm < README.md > tmp/README.html"
 end

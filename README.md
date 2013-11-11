@@ -34,6 +34,30 @@ This does the following:
 
 Once a user logs in, all subsequent requests have an auth_token parameter added to them.
 
+#### Overriding EAE Objects
+
+To override a built in EAE object, just create a file and define your class as normal. Your class will be used instead of the default.
+
+To override SignInController, put the following in app/controllers/sign_in.js:
+
+```
+SignInController = Ember.ObjectController.extend({
+  // your code
+});
+
+export default SignInController;
+```
+
+To extend the built in instead of replacing it:
+```
+SignInController = EmberAuth.SignInController.extend({
+  // your code
+});
+
+export default SignInController;
+```
+
+The same goes for templates.
 
 ### Developing and Improving Ember Auth Easy
 

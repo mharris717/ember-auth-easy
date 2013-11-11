@@ -1,0 +1,6 @@
+<overlay>
+  action: insert
+  after: "Em",
+</overlay>
+"EmberAuth",
+"testingMode",

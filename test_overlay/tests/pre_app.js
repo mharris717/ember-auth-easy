@@ -1,5 +1,3 @@
-/* global EmberAuth */
-
 var mode = null;
 window.testingMode = function() {
   var runCallback, setMode;
@@ -8,7 +6,7 @@ window.testingMode = function() {
       if (server) {
         return server();
       }
-    } else if (mode == "isolated") {
+    } else if (mode === "isolated") {
       if (isolated) {
         return isolated();
       }

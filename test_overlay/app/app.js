@@ -14,9 +14,7 @@ if (false) {
       name: "sign in models",
 
       initialize: function(container, application) {
-        console.debug("in models init");
         return container.lookup("auth:main").on("signInSuccess", function() {
-          console.debug("in success");
           return container.lookup("store:main").find('widget');
         });
       }

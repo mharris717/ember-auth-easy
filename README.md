@@ -1,5 +1,7 @@
 # Ember Auth Easy
 
+[![Build Status](https://travis-ci.org/mharris717/ember-auth-easy.png)](https://travis-ci.org/mharris717/ember-auth-easy)
+
 Simple library to do token authentication in Ember.js. 
 
 Corresponding Rails Engine: [Ember Auth Rails](https://github.com/mharris717/ember_auth_rails)
@@ -74,9 +76,16 @@ bundle install
 
 ### Running the test app
 
-[![Build Status](https://travis-ci.org/mharris717/ember-auth-easy.png)](https://travis-ci.org/mharris717/ember-auth-easy)
+There are several test apps included with Ember Auth Easy. 
 
-There is a test app inclued with Ember Auth Easy. 
+You may need to install prereqs first:
+
+```
+bundle install
+npm install
+```
+
+#### Client (Ember App Kit)
 
 To build and run it:
 
@@ -87,3 +96,48 @@ npm install -g bower grunt-cli
 
 bundle exec rake overlay:test
 ```
+
+This will:
+* Download Ember App Kit to test_overlay_app.
+* Add models/controllers/routes for a Widget class.
+* Overlay the files in test_overlay onto this new app.
+* Build EAE and copy it into the new app.
+* Start a server for the new app and run its tests. 
+
+Once the app is built, to run the tests in the app:
+
+```
+cd test_overlay_app
+grunt test:ci
+```
+
+This will run the tests in isolated mode, using the FixtureAdapter.
+
+##### Server Mode
+
+To run the tests in "server mode," change the following line in test_overlay_app/tests/pre_app.js:
+
+```
+//default
+testingMode("isolated");
+
+//change to
+testingMode("server");
+```
+
+This will run the tests by connecting to a server on port 5901, instead of using the FixtureAdapter. This is meant to match how a real app will work as closely as possible. To start a server for testing in server mode, see the next section. 
+
+#### Server (Rails using Ember Auth Rails)
+
+To build and run it:
+
+```
+rake test_server:setup test_server:run
+```
+
+This will:
+* Create an empty rails app in test_server.
+* Add Ember Auth Rails to the app.
+* Add models/controllers/routes for a Widget class.
+* Setup the database.
+* Run the app on port 5901

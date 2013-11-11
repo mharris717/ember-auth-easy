@@ -62,12 +62,12 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.2)
-    mharris_ext (1.7.0)
+    mharris_ext (1.7.1)
       facets
       fattr
     mime-types (1.25)
     multi_json (1.8.2)
-    overapp (0.3.0)
+    overapp (0.3.1)
       andand
       mharris_ext
     polyglot (0.3.3)
@@ -127,8 +127,8 @@ DEPENDENCIES
   guard (~> 1.4)
   guard-rake
   guard-shell
-  mharris_ext
-  overapp (>= 0.3.0)
+  mharris_ext (>= 1.7.1)
+  overapp (>= 0.3.1)
   rails
   rake
   rb-fsevent (~> 0.9)

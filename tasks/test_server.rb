@@ -8,38 +8,61 @@ def ec_popen(cmd)
 end
 
 namespace :test_server do
+  def test_server_dir
+    File.expand_path(File.dirname(__FILE__) + "/../test_server")
+  end
+
   task :build do
-    dir = "#{eae_root_dir}/test_server"
-    `rm -rf #{dir}` if FileTest.exist?(dir)
-    ec "overapp https://github.com/mharris717/ember_auth_rails_overlay.git #{dir}"
+    `rm -rf #{test_server_dir}` if FileTest.exist?(test_server_dir)
+    ec "overapp https://github.com/mharris717/ember_auth_rails_overlay.git #{test_server_dir}"
   end
 
-  task :run2 do
-    ec_popen("cd test_server && rails server -p 5901")
-
-    20.times do
-      puts "AFTER #{Time.now}"
-      sleep(1)
-    end
+  task :db do
+    ec "cd #{test_server_dir} && bundle install && rake ember_auth_rails_engine:install:migrations && rake db:migrate db:seed"
   end
 
-  task :run do
-    pid = fork do
-      exec "cd test_server && rails server -p 5902"
+  task :setup => [:build,:db]
+
+  def pid_status(desc)
+    res = [desc]
+    res << "This: #{Process.pid}"
+    res << "Forked: #{$forked_pid}"
+    res += server_ps_lines
+    str = res.join("\n")
+    puts str
+    File.append "pids.txt",str+"\n\n"
+  end
+
+  def server_ps_lines
+    `ps -ax | grep #{port}`.split("\n").reject { |x| x =~ /grep/ }
+  end
+
+  def server_pids
+    server_ps_lines.map { |x| x.split(/\s/).first }
+  end
+
+  def port
+    5901
+  end
+
+  task :start_in_background do
+    fork do
+      `cd #{test_server_dir} && rails server -p #{port}`
     end
-
-    puts "PID: child: #{pid} me: #{Process.pid}"
-    require 'mharris_ext'
-    File.create "pids.txt","PID: child: #{pid} me: #{Process.pid}"
-
     sleep(5)
+  end
 
-    system "cd test_overlay_app && grunt test:ci"
+  task :start do
+    ec "cd #{test_server_dir} && rails server -p #{port}"
+  end
 
-    puts "PID: child: #{pid} me: #{Process.pid}"
-    puts `ps -ax | grep ruby`
+  def kill_strays
+    server_pids.each do |pid|
+      ec "kill -s int #{pid}"
+    end
+  end
 
-    ec "pkill -signal kill -P #{pid}"
-
+  task :kill_strays do
+    kill_strays
   end
 end

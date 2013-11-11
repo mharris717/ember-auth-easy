@@ -3,7 +3,6 @@ before_install:
   - bundle install
   - npm install -g grunt-cli bower
 before_script:
-  - rake test_server:build
-  - cd test_server && bundle install && rake ember_auth_rails_engine:install:migrations && rake db:migrate db:seed && cd ..
-  - cd test_server && rails server -p 5901 &
+  - rake test_server:setup
+  - rake test_server:start_in_background
 script: rake overlay:test_both

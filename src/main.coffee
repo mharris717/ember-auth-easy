@@ -2,6 +2,16 @@ console.mylog = (str) ->
   console.debug str
   3
 
+getBaseObjs = ->
+  res = {}
+  res = $.extend res, require("./controllers/sign_in")
+  res = $.extend res, require("./controllers/register")
+  res = $.extend res, require("./models/user")
+  res.RegisterRoute = require("./routes/register")
+  res
+
+baseObjs = getBaseObjs()
+
 auth = 
   setupAuthUrls: ->
     DS.RESTAdapter.reopen
@@ -11,18 +21,15 @@ auth =
           s += ".json"
         s
 
-  controllers: $.extend require("./controllers/sign_in"), require("./controllers/register")
-  models: require("./models/user")
   Auth: require("./auth_setup")
   testHelpers: require("./test_helpers")
 
   setupApp: (app,ops) ->
-    app.User = @models.User
-    app.SignInController = @controllers.SignInController
-    app.SignOutController = @controllers.SignOutController
-    app.RegisterController = @controllers.RegisterController
-
-    app.RegisterRoute = require("./routes/register")
+    app.User = baseObjs.User
+    app.SignInController = baseObjs.SignInController
+    app.SignOutController = baseObjs.SignOutController
+    app.RegisterController = baseObjs.RegisterController
+    app.RegisterRoute = baseObjs.RegisterRoute
 
     authClass = @Auth.Auth(ops)
     
@@ -42,6 +49,9 @@ auth =
 
   getDefaultOps: ->
     @defaultOps || {}
+
+for k,v of baseObjs
+  auth[k] = v
 
 setupEmberInit = ->
   Ember.onLoad 'Ember.Application', (Application) ->

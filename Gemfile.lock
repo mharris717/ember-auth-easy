@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/mharris717/coffee_short_get.git
+  revision: 3901ebe7ffe68fd0131fe610ec09059db1a0cb3f
+  specs:
+    coffee_short_get (0.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -32,7 +38,6 @@ GEM
     arel (3.0.2)
     builder (3.0.4)
     coderay (1.0.9)
-    coffee_short_get (0.2.0)
     erubis (2.7.0)
     facets (2.9.3)
     fattr (2.2.1)
@@ -123,7 +128,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  coffee_short_get
+  coffee_short_get!
   guard (~> 1.4)
   guard-rake
   guard-shell

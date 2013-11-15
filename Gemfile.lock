@@ -4,6 +4,16 @@ GIT
   specs:
     coffee_short_get (0.2.1)
 
+GIT
+  remote: git://github.com/mharris717/overapp.git
+  revision: 376b60bd472ce4316652e448733c0f984106bc96
+  branch: master
+  specs:
+    overapp (0.4.1)
+      andand
+      mharris_ext (>= 1.7.1)
+      ptools
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,10 +82,6 @@ GEM
       fattr
     mime-types (1.25)
     multi_json (1.8.2)
-    overapp (0.4.1)
-      andand
-      mharris_ext (>= 1.7.1)
-      ptools
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -135,7 +141,7 @@ DEPENDENCIES
   guard-rake
   guard-shell
   mharris_ext (>= 1.7.1)
-  overapp (>= 0.4.1)
+  overapp!
   rails
   rake
   rb-fsevent (~> 0.9)

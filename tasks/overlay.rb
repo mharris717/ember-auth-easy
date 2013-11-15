@@ -13,7 +13,8 @@ namespace :overlay do
   task :build_inner do
     root = eae_root_dir
     app = "#{root}/test_overlay_app"
-    ec "rm -rf #{app}"
+    ec "rm -rf #{app}" if FileTest.exist?(app)
+    ec "mkdir #{app}"
     ec "overapp #{root}/test_overlay #{root}/test_overlay_app"
     raise 'bad' unless $?.success?
     Dir.chdir(app) do

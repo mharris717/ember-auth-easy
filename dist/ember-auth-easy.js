@@ -457,9 +457,9 @@ Em.TEMPLATES['sign_in'] = Em.Handlebars.compile('<form class="form-inline login-
 
 Em.TEMPLATES['sign-in'] = Em.Handlebars.compile('<form class="form-inline login-form">   {{#if showLoginForm}}     <span class="email-field">       {{view Em.TextField valueBinding="email" placeholder="Email"}}      </span>      <span class="password-field">       {{view Em.TextField valueBinding="password" placeholder="Password"}}     </span>     <span class="submit-button">       <button {{action "login"}}>Login</button>     </span>      {{#linkTo "register"}}Register{{/linkTo}}   {{else}}     <a {{bindAttr href="dropboxUrl"}}>Login with Dropbox</a>   {{/if}} </form>');
 
-Em.TEMPLATES['sign_out'] = Em.Handlebars.compile('<a href="#" {{action "logout"}}>Logout</a> {{#if auth.user.providers.fatsecret}}    {{else}}   {{#if App.useFatSecret}}     <a {{bindAttr href="fatsecretUrl"}}>Connect FatSecret</a>   {{/if}} {{/if}}');
+Em.TEMPLATES['sign_out'] = Em.Handlebars.compile('<span class="logout">   <a href="#" {{action "logout"}}>Logout</a> </span>  {{#if auth.user.providers.fatsecret}}    {{else}}   {{#if App.useFatSecret}}     <a {{bindAttr href="fatsecretUrl"}}>Connect FatSecret</a>   {{/if}} {{/if}}');
 
-Em.TEMPLATES['sign-out'] = Em.Handlebars.compile('<a href="#" {{action "logout"}}>Logout</a> {{#if auth.user.providers.fatsecret}}    {{else}}   {{#if App.useFatSecret}}     <a {{bindAttr href="fatsecretUrl"}}>Connect FatSecret</a>   {{/if}} {{/if}}');
+Em.TEMPLATES['sign-out'] = Em.Handlebars.compile('<span class="logout">   <a href="#" {{action "logout"}}>Logout</a> </span>  {{#if auth.user.providers.fatsecret}}    {{else}}   {{#if App.useFatSecret}}     <a {{bindAttr href="fatsecretUrl"}}>Connect FatSecret</a>   {{/if}} {{/if}}');
 
 
 },{}],9:[function(require,module,exports){

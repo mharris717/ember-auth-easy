@@ -25,3 +25,10 @@ test 'login failure works', ->
       equal find(".widget").length,0
       equal find(".user-status .signed-out").length,1
       equal find(".user-status .signed-in").length,0
+
+loggedInTest 'logout', "/widgets", ->
+  wait().then ->
+    equal find(".user-status .signed-in").length,1
+    click(".logout a").then ->
+      equal find(".user-status .signed-in").length,0
+      equal find(".user-status .signed-out").length,1

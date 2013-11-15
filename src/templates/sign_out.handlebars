@@ -1,4 +1,7 @@
-<a href="#" {{action "logout"}}>Logout</a>
+<span class="logout">
+  <a href="#" {{action "logout"}}>Logout</a>
+</span>
+
 {{#if auth.user.providers.fatsecret}}
   
 {{else}}

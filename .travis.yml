@@ -1,6 +1,4 @@
 language: ruby
-before_install:
-  - bundle install
 before_script:
   - rake test_server:setup
 script: ls

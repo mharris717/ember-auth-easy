@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'mharris_ext',">= 1.7.1"
 gem 'coffee_short_get', :github => "mharris717/coffee_short_get"
-gem 'overapp',">= 0.3.1"
+gem 'overapp', :github => "mharris717/overapp", :branch => "eae"
 gem 'rake'
 
 group :development do

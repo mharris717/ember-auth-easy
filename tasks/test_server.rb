@@ -8,13 +8,23 @@ def ec_popen(cmd)
 end
 
 namespace :test_server do
+  def overapp
+    local = "/code/orig/overapp/bin/overapp"
+    if FileTest.exist?(local)
+      local
+    else
+      "overapp"
+    end
+  end
+
   def test_server_dir
     File.expand_path(File.dirname(__FILE__) + "/../test_server")
   end
 
   task :build do
     `rm -rf #{test_server_dir}` if FileTest.exist?(test_server_dir)
-    ec "overapp https://github.com/mharris717/ember_auth_rails_overlay.git #{test_server_dir}"
+    `mkdir #{test_server_dir}`
+    ec "#{overapp} https://github.com/mharris717/ember_auth_rails_overlay.git #{test_server_dir}"
   end
 
   task :db do

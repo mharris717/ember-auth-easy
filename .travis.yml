@@ -1,4 +1,4 @@
 language: ruby
 before_script:
-  - rake test_server:setup
+  - rake test_server:build
 script: ls

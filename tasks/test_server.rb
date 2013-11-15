@@ -13,8 +13,8 @@ namespace :test_server do
   end
 
   task :build do
-    `rm -rf #{test_server_dir}` if FileTest.exist?(test_server_dir)
-    `mkdir #{test_server_dir}`
+    ec "rm -rf #{test_server_dir}" if FileTest.exist?(test_server_dir)
+    ec "mkdir #{test_server_dir}"
     ec "#{overapp} https://github.com/mharris717/ember_auth_rails_overlay.git #{test_server_dir}"
   end
 

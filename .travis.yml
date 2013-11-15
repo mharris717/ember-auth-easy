@@ -1,4 +1,4 @@
 language: ruby
 before_script:
-  - sdfwefwefwefwef
+  - rake fail
 script: ls

@@ -25,3 +25,13 @@ end
 %w(build overlay test_server).each do |f|
   load File.dirname(__FILE__) + "/tasks/#{f}.rb"
 end
+
+task :fail1 do
+  require 'fail_1_dfgdfgdfgdfgd'
+end
+
+task :fail2 do
+  require 'fail_2_fgdfgdfgdfg'
+end
+
+task :fail => [:fail1,:fail2]

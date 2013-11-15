@@ -1,5 +1,8 @@
 language: ruby
-install: bundle install
+install: 
+  - bundle install
+  - npm install -g grunt-cli bower
+  - npm install
 before_script:
   - rake test_server:build
   - rake test_server:start_in_background

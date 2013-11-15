@@ -1,11 +1,8 @@
 namespace :test_server do
   def overapp
-    local = "/code/orig/overapp/bin/overapp"
-    if FileTest.exist?(local)
-      local
-    else
-      "overapp"
-    end
+    locals = ["/code/orig/overapp/bin/overapp"]
+    locals << File.expand_path(File.dirname(__FILE__) + "/../vendor/bundle/ruby/1.9.1/bin/overapp")
+    locals.find { |x| FileTest.exist?(x) } || "overapp"
   end
 
   def test_server_dir

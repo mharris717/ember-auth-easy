@@ -2,4 +2,5 @@ language: ruby
 install: bundle install
 before_script:
   - rake test_server:build
-script: ls
+  - rake test_server:start_in_background
+script: rake overlay:test_both

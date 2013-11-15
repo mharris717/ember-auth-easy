@@ -1,20 +1,17 @@
-def ec_popen(cmd)
-  puts cmd
-  IO.popen(cmd) do |io|
-    while res = io.read
-      print res
-    end
-  end
-end
-
 namespace :test_server do
+  def overapp
+    locals = ["/code/orig/overapp/bin/overapp"]
+    locals.find { |x| FileTest.exist?(x) } || "overapp"
+  end
+
   def test_server_dir
     File.expand_path(File.dirname(__FILE__) + "/../test_server")
   end
 
   task :build do
-    `rm -rf #{test_server_dir}` if FileTest.exist?(test_server_dir)
-    ec "overapp https://github.com/mharris717/ember_auth_rails_overlay.git #{test_server_dir}"
+    ec "rm -rf #{test_server_dir}" if FileTest.exist?(test_server_dir)
+    ec "mkdir #{test_server_dir}"
+    ec "#{overapp} https://github.com/mharris717/ember_auth_rails_overlay.git #{test_server_dir}"
   end
 
   task :db do
@@ -47,7 +44,7 @@ namespace :test_server do
 
   task :start_in_background do
     fork do
-      `cd #{test_server_dir} && rails server -p #{port}`
+      ec "cd #{test_server_dir} && rails server -p #{port}"
     end
     sleep(5)
   end

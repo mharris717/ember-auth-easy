@@ -1,3 +1,19 @@
+GIT
+  remote: git://github.com/mharris717/coffee_short_get.git
+  revision: 3901ebe7ffe68fd0131fe610ec09059db1a0cb3f
+  specs:
+    coffee_short_get (0.2.1)
+
+GIT
+  remote: git://github.com/mharris717/overapp.git
+  revision: 376b60bd472ce4316652e448733c0f984106bc96
+  branch: master
+  specs:
+    overapp (0.4.1)
+      andand
+      mharris_ext (>= 1.7.1)
+      ptools
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -32,7 +48,6 @@ GEM
     arel (3.0.2)
     builder (3.0.4)
     coderay (1.0.9)
-    coffee_short_get (0.2.0)
     erubis (2.7.0)
     facets (2.9.3)
     fattr (2.2.1)
@@ -62,19 +77,17 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.2)
-    mharris_ext (1.7.0)
+    mharris_ext (1.7.1)
       facets
       fattr
     mime-types (1.25)
     multi_json (1.8.2)
-    overapp (0.3.0)
-      andand
-      mharris_ext
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    ptools (1.2.2)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -123,12 +136,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  coffee_short_get
+  coffee_short_get!
   guard (~> 1.4)
   guard-rake
   guard-shell
-  mharris_ext
-  overapp (>= 0.3.0)
+  mharris_ext (>= 1.7.1)
+  overapp!
   rails
   rake
   rb-fsevent (~> 0.9)

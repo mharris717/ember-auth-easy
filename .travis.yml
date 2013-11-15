@@ -1,5 +1,5 @@
-language: unk
+language: ruby
+install: bundle install
 before_script:
-  - bundle install
   - rake test_server:build
 script: ls

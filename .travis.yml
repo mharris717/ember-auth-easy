@@ -1,5 +1,5 @@
 language: ruby
 before_script:
-  - gem install overapp
+  - bundle install
   - rake test_server:build
 script: ls

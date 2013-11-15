@@ -6,12 +6,13 @@ GIT
 
 GIT
   remote: git://github.com/mharris717/overapp.git
-  revision: 4b1202f42a0c19a4d101e7e5e946961cd05aac5a
+  revision: fae02ae828ba7277ee44bda08971d50bdb071b85
   branch: eae
   specs:
     overapp (0.4.0)
       andand
       mharris_ext (>= 1.7.1)
+      ptools
 
 GEM
   remote: https://rubygems.org/
@@ -86,6 +87,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    ptools (1.2.2)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)

@@ -1,8 +1,3 @@
-def ec(cmd)
-  puts cmd
-  puts `#{cmd}`
-end
-
 def templates_names(name)
   res = [name]
   res << name[1..-1] if name[0..0] == "_"

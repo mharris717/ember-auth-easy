@@ -1,12 +1,3 @@
-def ec_popen(cmd)
-  puts cmd
-  IO.popen(cmd) do |io|
-    while res = io.read
-      print res
-    end
-  end
-end
-
 namespace :test_server do
   def overapp
     local = "/code/orig/overapp/bin/overapp"

@@ -23,7 +23,7 @@ EmberAuth.registerOps({baseUrl: "http://serverurl.com"});
 
 In your template, render the user status partial:
 ```
-  {{partial user_status}}
+  {{render user_status}}
 ```
 
 This does the following:

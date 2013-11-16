@@ -13,7 +13,7 @@ helpers.loginSuccessfully = (url) ->
   helpers.loginWith("user@fake.com","password123",url)
 
 helpers.loginFail = ->
-  helpers.loginWith("user@fake.com","passwordwrong")
+  helpers.loginWith("user@fake.com","passwordwrong#{Math.random() * 10000000000}")
 
 helpers.register = (email,password) ->
   visit("/register")

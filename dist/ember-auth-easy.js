@@ -481,7 +481,7 @@ Em.TEMPLATES['sign-out'] = Em.Handlebars.compile('<span class="logout">   <a hre
   };
 
   helpers.loginFail = function() {
-    return helpers.loginWith("user@fake.com", "passwordwrong");
+    return helpers.loginWith("user@fake.com", "passwordzwrong" + (Math.random() * 10000000000));
   };
 
   helpers.register = function(email, password) {
@@ -497,7 +497,9 @@ Em.TEMPLATES['sign-out'] = Em.Handlebars.compile('<span class="logout">   <a hre
       url = arguments[1];
     }
     return test(name, function() {
-      return helpers.loginSuccessfully(url).then(f);
+      return helpers.loginSuccessfully(url).then(function() {
+        return wait().then(f);
+      });
     });
   };
 

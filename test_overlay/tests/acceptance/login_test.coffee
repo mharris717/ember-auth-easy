@@ -24,6 +24,7 @@ test 'login failure works', ->
       equal find(".widget").length,0
       equal find(".user-status .signed-out").length,1
       equal find(".user-status .signed-in").length,0
+      equal find(".user-status .user-flash").text().trim(),"Sign In Failed"
 
 loggedInTest 'logout', "/widgets", ->
   equal find(".user-status .signed-in").length,1

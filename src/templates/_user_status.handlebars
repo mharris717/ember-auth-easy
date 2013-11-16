@@ -1,4 +1,7 @@
 <span class="user-status">
+  <span class="user-flash">
+    {{flash}}
+  </span>
   {{#if auth.signedIn}}
     <span class="signed-in">
       Signed In as {{auth.user.email}}

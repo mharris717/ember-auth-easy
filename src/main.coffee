@@ -7,6 +7,7 @@ getBaseObjs = ->
   res = $.extend res, require("./controllers/sign_in")
   res = $.extend res, require("./controllers/register")
   res = $.extend res, require("./models/user")
+  res.UserStatusController = require("./controllers/user_status")
   res.RegisterRoute = require("./routes/register")
   res
 
@@ -28,6 +29,7 @@ auth =
     app.User = baseObjs.User
     app.SignInController = baseObjs.SignInController
     app.SignOutController = baseObjs.SignOutController
+    app.UserStatusController = baseObjs.UserStatusController
     app.RegisterController = baseObjs.RegisterController
     app.RegisterRoute = baseObjs.RegisterRoute
 

@@ -5,6 +5,15 @@ GIT
     coffee_short_get (0.2.1)
 
 GIT
+  remote: git://github.com/mharris717/npm_overapp.git
+  revision: e6d885ee3314c539826a7ba5bffc5a69c1ebaee9
+  branch: master
+  specs:
+    npm_overapp (0.0.1)
+      mharris_ext
+      rake
+
+GIT
   remote: git://github.com/mharris717/overapp.git
   revision: 376b60bd472ce4316652e448733c0f984106bc96
   branch: master
@@ -141,6 +150,7 @@ DEPENDENCIES
   guard-rake
   guard-shell
   mharris_ext (>= 1.7.1)
+  npm_overapp!
   overapp!
   rails
   rake

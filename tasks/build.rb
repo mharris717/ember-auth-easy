@@ -43,7 +43,7 @@ end
 
 task :clean do
   %w(test_overlay_app test_server lib test tmp node_modules).each do |dir|
-    dir = "#{eae_root_dir}/#{dir}"
+    dir = "#{NpmOverall.project_root_dir}/#{dir}"
     ec "rm -rf #{dir}" if FileTest.exist?(dir)
   end
 end

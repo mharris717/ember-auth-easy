@@ -15,3 +15,4 @@ group :development do
   gem 'rails'
 end
 
+gem 'npm_overapp', :github => "mharris717/npm_overapp", :branch => :master

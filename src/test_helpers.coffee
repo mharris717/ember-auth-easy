@@ -30,7 +30,8 @@ helpers.loggedInTest = (name) ->
     url = arguments[1]
 
   test name, ->
-    helpers.loginSuccessfully(url).then(f)
+    helpers.loginSuccessfully(url).then ->
+      wait().then(f)
 
 helpers.setup = (callback) ->
   Ember.run ->

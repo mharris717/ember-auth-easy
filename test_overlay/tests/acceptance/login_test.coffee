@@ -10,8 +10,7 @@ test 'widget renders', ->
   equal 2,2
 
 loggedInTest 'login works', "/widgets", ->
-  wait().then ->
-    equal find(".user-status .signed-in").length,1
+  equal find(".user-status .signed-in").length,1
 
 loggedInTest 'login displays widgets', "/widgets", ->
   App.__container__.lookup("store:main").find('widget')
@@ -27,8 +26,8 @@ test 'login failure works', ->
       equal find(".user-status .signed-in").length,0
 
 loggedInTest 'logout', "/widgets", ->
-  wait().then ->
-    equal find(".user-status .signed-in").length,1
-    click(".logout a").then ->
-      equal find(".user-status .signed-in").length,0
-      equal find(".user-status .signed-out").length,1
+  equal find(".user-status .signed-in").length,1
+  click(".logout a").then ->
+    equal find(".user-status .signed-in").length,0
+    equal find(".user-status .signed-out").length,1
+    

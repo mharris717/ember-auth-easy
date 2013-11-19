@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/mharris717/npm_overapp.git
-  revision: e6d885ee3314c539826a7ba5bffc5a69c1ebaee9
+  revision: aff24db8e22141e92493122d76378a7c3a509350
   branch: master
   specs:
     npm_overapp (0.0.1)

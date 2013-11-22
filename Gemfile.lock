@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mharris717/overapp.git
-  revision: 6f3fbd6568fa2cd6f934c08d5508bc3e6bba1145
+  revision: f06f588ee2a317cebc2d086400e3068308200f45
   branch: master
   specs:
     overapp (0.5.0)

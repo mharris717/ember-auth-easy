@@ -15,10 +15,10 @@ GIT
 
 GIT
   remote: git://github.com/mharris717/overapp.git
-  revision: 4c5e7aeae2c09fd11cf54449dbd039a487db5e43
+  revision: de2e2f4e70efec43c20716c80ea84a46ed2782ab
   branch: master
   specs:
-    overapp (0.5.0)
+    overapp (0.5.1)
       andand
       mharris_ext (>= 1.7.1)
       ptools
